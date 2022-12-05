@@ -1,6 +1,7 @@
 """2022, Day 1, Part 1"""
-from typing import List
 import pathlib
+from typing import List
+
 
 def solution(inventory_list: List) -> int:
 
@@ -16,27 +17,28 @@ def solution(inventory_list: List) -> int:
         elif len(item) == 0:
             max_calories_per_elf = max(max_calories_per_elf, calories_of_current_elf)
             calories_of_current_elf = 0
-            
+
     # Check if the last elf has more inventory than the others
     max_calories_per_elf = max(max_calories_per_elf, calories_of_current_elf)
     calories_of_current_elf = 0
-    
+
     return max_calories_per_elf
 
+
 if __name__ == "__main__":
-    
+
     # Input data
     filepath = pathlib.Path("01/input.txt")
     with open(filepath) as f:
-        inventory_list = f.read().splitlines() 
-    
+        inventory_list = f.read().splitlines()
+
     # Result
-    print(solution(inventory_list)) # correct: 67622
+    print(solution(inventory_list))  # correct: 67622
 
     # Test 1
     inventory_list_test = ["1", "2", "", "300"]
     expected = 300
-    assert solution(inventory_list_test) == expected 
+    assert solution(inventory_list_test) == expected
 
     # Test 2
     inventory_list_test = ["1", "2", ""]
