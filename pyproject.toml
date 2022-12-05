@@ -1,18 +1,12 @@
 [tool.poetry]
 name = "aoc2022"
 version = "0.1.0"
-description = ""
+description = "Solutions for Advent of Code 2022."
 authors = ["Julius Kittler"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pandas = "^1.5.2"
-numpy = "^1.23.5"
-scikit-learn = "^1.1.3"
-scipy = "^1.9.3"
-seaborn = "^0.12.1"
-matplotlib = "^3.6.2"
-jupyter = "^1.0.0"
+pre-commit = "^2.20.0"
 
 [tool.poetry.dev-dependencies]
 
