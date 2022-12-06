@@ -2,11 +2,11 @@ import pathlib
 
 
 def solution(datastream: str, marker_len: int = 4) -> int:
-    """Return first index of first sequence with 4 different characters."""
+    """Return first index of first sequence with marker_len different characters."""
     n = len(datastream)
 
-    # Loop through the string, keeping a window of 4 characters each and check
-    # if these 4 characters are unique for each of them.
+    # Loop through the string, keeping a window of 'marker_len' characters and check
+    # if these 'marker_len' characters are unique for each of them.
     for i in range(0, n - marker_len + 1):
         candidate = datastream[i : (i + marker_len)]
         n_unique_characters = len(set(candidate))
