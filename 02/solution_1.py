@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     # Input data
     filepath = pathlib.Path("02/input.txt")
-    with open(filepath) as f:
+    with open(filepath, "r") as f:
         my_list = f.read().splitlines()
         opponent = [x[0] for x in my_list]
         player = [x[-1] for x in my_list]

@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # Input data
     filepath = pathlib.Path("01/input.txt")
-    with open(filepath) as f:
+    with open(filepath, "r") as f:
         inventory_list = f.read().splitlines()
 
     # Result

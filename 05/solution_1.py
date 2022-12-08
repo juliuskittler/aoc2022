@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # Input data
     filepath = pathlib.Path("05/input.txt")
-    with open(filepath) as f:
+    with open(filepath, "r") as f:
         my_input = f.read()  # .splitlines()
 
         # Get instructions in list form

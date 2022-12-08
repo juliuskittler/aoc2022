@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     # Input data
     filepath = pathlib.Path("03/input.txt")
-    with open(filepath) as f:
+    with open(filepath, "r") as f:
         rucksack_contents = f.read().splitlines()
 
     # Result

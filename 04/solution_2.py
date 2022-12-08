@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # - https://stackoverflow.com/questions/4998629/split-string-with-multiple-delimiters-in-python
     # - https://stackoverflow.com/questions/3371269/call-int-function-on-every-list-element
     filepath = pathlib.Path("04/input.txt")
-    with open(filepath) as f:
+    with open(filepath, "r") as f:
         assignment_pairs = f.read().splitlines()
         assignment_pairs = [
             list(map(int, re.split("-|,", item))) for item in assignment_pairs
