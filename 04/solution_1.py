@@ -4,7 +4,7 @@ import re
 from typing import List
 
 
-def solution(assignment_pairs: List) -> int:
+def solution(assignment_pairs: List[List[int]]) -> int:
     # Initialize useful variables
     number_of_pairs_with_full_overlap = 0
 

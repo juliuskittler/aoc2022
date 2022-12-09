@@ -4,7 +4,7 @@ import string
 from typing import List
 
 
-def solution(rucksack_contents: List) -> int:
+def solution(rucksack_contents: List[str]) -> int:
     # Check inputs
     n = len(rucksack_contents)
     assert n % 3 == 0, "Number of rucksack contents is perfectly divisible by 3."

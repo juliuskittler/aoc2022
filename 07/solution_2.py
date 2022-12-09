@@ -8,7 +8,7 @@ import pathlib
 from typing import List
 
 
-def solution(terminal_outputs: List) -> int:
+def solution(terminal_outputs: List[str]) -> int:
 
     # Initialize useful variables
     size_per_dir = []  # For complete sums of filesizes for each directory

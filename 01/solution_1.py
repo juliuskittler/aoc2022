@@ -3,7 +3,7 @@ import pathlib
 from typing import List
 
 
-def solution(inventory_list: List) -> int:
+def solution(inventory_list: List[str]) -> int:
 
     # Initialize useful variables
     max_calories_per_elf = 0

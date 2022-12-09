@@ -4,7 +4,7 @@ import string
 from typing import List
 
 
-def solution(rucksack_contents: List) -> int:
+def solution(rucksack_contents: List[str]) -> int:
     # Initialize useful variables
     priority_sum = 0
     priority_dict_lower = {key: i + 1 for i, key in enumerate(string.ascii_lowercase)}

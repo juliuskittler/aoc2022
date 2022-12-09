@@ -3,7 +3,7 @@ import pathlib
 from typing import List
 
 
-def solution(inventory_list: List, top_k: int = 3) -> int:
+def solution(inventory_list: List[str], top_k: int = 3) -> int:
 
     # Initialize useful variables
     calories_of_top_k_elves = [0] * top_k

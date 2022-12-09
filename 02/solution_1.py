@@ -3,7 +3,7 @@ import pathlib
 from typing import List
 
 
-def solution(opponent: List, player: List) -> int:
+def solution(opponent: List[str], player: List[str]) -> int:
     # Check inputs
     assert len(player) == len(opponent)
     assert all([x in ["A", "B", "C"] for x in opponent])
