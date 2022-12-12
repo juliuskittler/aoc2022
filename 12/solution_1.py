@@ -1,7 +1,7 @@
 import copy
 import pathlib
 import string
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 """
 Note: 
@@ -15,9 +15,9 @@ we can create a function that returns the number of steps required to reach E fr
 given position. For each possible direction (i.e. where the letter is either smaller
 or 1 letter larger than the letter of the current direction), the function will call
 itself to get the required number of steps for the respective direction. Then, it will
-take the minimum of all the returned numbers of steps.
-- But can we be smarter? Would it help to work the problem backwards (e.g. from E to S)
-or somehow make use of the fact that we know the position of both E and S upfront?
+take the minimum of all the returned numbers of steps. However, this seems very 
+inefficient because we would visit certain positions multiple times.
+- Let's use BFS! Reference: https://www.youtube.com/watch?v=oDqjPvD54Ss
 """
 
 
@@ -47,76 +47,76 @@ def get_distance(letter_next: str, letter_curr: str) -> int:
     return distance
 
 
-def get_min_steps_from_a_to_b(
-    a_coord: Tuple[int],
-    b_coord: Tuple[int],
+def get_edge_coords(
+    node: Tuple[int],
     heightmap: List[str],
-    n: int,
     m: int,
-    steps_taken: int,
-    seen_coords: Optional[List[Tuple[int]]] = None,
-) -> int:
-    """Recursive function to get the minimum number of steps from a to b."""
-    # Ensure that steps_taken cannot be adjusted by other function calls
-    steps_taken = copy.deepcopy(steps_taken)
-    seen_coords = copy.deepcopy(seen_coords)
+    n: int,
+) -> List[Tuple[int]]:
 
-    # Identify all possible positions where we can go from the a_coord position
-    candidate_coords = list()
-    i_a, j_a = a_coord
-    a_letter = heightmap[i_a][j_a]
-    if seen_coords is None:
-        seen_coords = list()
+    # Prepare useful variables
+    i, j = node
+    node_letter = heightmap[i][j]
 
-    if i_a > 0 and get_distance(heightmap[i_a - 1][j_a], a_letter) >= -1:  # Go up
-        candidate_up_coord = (i_a - 1, j_a)
-        if candidate_up_coord not in seen_coords:
-            candidate_coords.append(candidate_up_coord)
-    if i_a < n - 1 and get_distance(heightmap[i_a + 1][j_a], a_letter) >= -1:  # Go down
-        candidate_down_coord = (i_a + 1, j_a)
-        if candidate_down_coord not in seen_coords:
-            candidate_coords.append(candidate_down_coord)
-    if j_a > 0 and get_distance(heightmap[i_a][j_a - 1], a_letter) >= -1:  # Go left
-        candidate_left_coord = (i_a, j_a - 1)
-        if candidate_left_coord not in seen_coords:
-            candidate_coords.append(candidate_left_coord)
-    if (
-        j_a < m - 1 and get_distance(heightmap[i_a][j_a + 1], a_letter) >= -1
-    ):  # Go right
-        candidate_right_coord = (i_a, j_a + 1)
-        if seen_coords is None or candidate_right_coord not in seen_coords:
-            candidate_coords.append(candidate_right_coord)
+    # Get next positions
+    edge_coords = list()
+    if i > 0 and get_distance(heightmap[i - 1][j], node_letter) <= 1:  # Go up
+        candidate_up_coord = (i - 1, j)
+        edge_coords.append(candidate_up_coord)
+    if i < n - 1 and get_distance(heightmap[i + 1][j], node_letter) <= 1:  # Go down
+        candidate_down_coord = (i + 1, j)
+        edge_coords.append(candidate_down_coord)
+    if j > 0 and get_distance(heightmap[i][j - 1], node_letter) <= 1:  # Go left
+        candidate_left_coord = (i, j - 1)
+        edge_coords.append(candidate_left_coord)
+    if j < m - 1 and get_distance(heightmap[i][j + 1], node_letter) <= 1:  # Go right
+        candidate_right_coord = (i, j + 1)
+        edge_coords.append(candidate_right_coord)
 
-    # # Debug
-    # # print("len(seen_coords): {}".format(len(seen_coords)))
-    # # print("steps_taken: {}".format(steps_taken))
-    # if steps_taken == 1:
-    #     print("\n\n\n")
-    #     heightmap_copy = copy.deepcopy(heightmap)
-    #     heightmap_copy[i_a]= heightmap_copy[i_a][0:j_a] + "." + heightmap_copy[i_a][j_a+1:]
-    #     for row in heightmap_copy:
-    #         print(row)
+    return edge_coords
 
-    # Check termination conditions:
-    # If the target is in the candidate coords, return 1
-    if b_coord in candidate_coords:
-        return steps_taken + 1
-    # If there are not candidates, return a very large number
-    elif len(candidate_coords) == 0:
-        return 9e10
 
-    # Call get_min_steps_from_a_to_b itself for each possible direction
-    candidate_steps = list()
-    seen_coords.append(a_coord)
-    for cand in candidate_coords:
-        n_steps = get_min_steps_from_a_to_b(
-            cand, b_coord, heightmap, n, m, steps_taken + 1, seen_coords
-        )
-        candidate_steps.append(n_steps)
+def bfs_solve(
+    start_node: Tuple[int], graph: Dict[Tuple[int], List[Tuple[int]]]
+) -> dict:
+    # Initialize useful variables
+    queue = [start_node]
+    visited = {node: False for node in graph.keys()}
+    prev = {
+        node: None for node in graph.keys()
+    }  # will help us reconstruct the shortest path
+    iter = 0
 
-    # Take the minimum of all results and return it
-    min_steps = min(candidate_steps)
-    return min_steps
+    # Traverse the graph until all nodes are visited
+    while len(queue) > 0:
+        # Remove the first element from the queu
+        node = queue[0]
+        queue = queue[1:]
+
+        # Get the neighbors of the current node
+        neighbors = graph[node]
+
+        # Loop over each unvisited node
+        for neighbor in neighbors:
+            if not visited[neighbor]:
+                queue.append(neighbor)
+                visited[neighbor] = True
+
+                prev[neighbor] = {"iter": iter, "node": node}
+                iter += 1
+
+    return prev
+
+
+def bfs_reconstruct(start_node: Tuple[int], end_node: Tuple[int], prev: dict):
+    # Reconstruct path going backwards from end node
+    current_node = end_node
+    path = [current_node]
+    while current_node is not start_node:
+        current_node = prev[current_node]["node"]
+        path.append(current_node)
+    path.reverse()
+    return path
 
 
 def solution(heightmap: List[str]) -> int:
@@ -134,11 +134,21 @@ def solution(heightmap: List[str]) -> int:
             elif heightmap[i][j] == "E":
                 e_coord = (i, j)
 
-    # Get minimum number of distance steps between a and b
-    steps_taken = 0
-    min_steps = get_min_steps_from_a_to_b(
-        e_coord, s_coord, heightmap, n, m, steps_taken
-    )
+    # Construct graph for BFS: for each position (node) we get a list of next positions
+    # that represent our paths (edges).
+    graph = dict()
+    for i in range(n):
+        for j in range(m):
+            node = (i, j)
+            graph[node] = get_edge_coords(node, heightmap, m, n)
+
+    # Conduct BFS
+    prev = bfs_solve(s_coord, graph)
+    path = bfs_reconstruct(s_coord, e_coord, prev)
+
+    # Compute the minimum number of steps as the length of the path minus 1
+    # (minus 1 because we don't count the start step itself)
+    min_steps = len(path) - 1
     return min_steps
 
 
@@ -148,10 +158,9 @@ if __name__ == "__main__":
     with open(filepath, "r") as f:
         heightmap = f.read().splitlines()
 
-    print(solution(heightmap))
+    print(solution(heightmap))  # correct: 370
 
     # Test 1
     heightmap_test = ["Sabqponm", "abcryxxl", "accszExk", "acctuvwj", "abdefghi"]
     expected = 31
-    print(solution(heightmap_test))
-    # assert solution(heightmap_test) == expected
+    assert solution(heightmap_test) == expected
