@@ -1,0 +1,28 @@
+import pathlib
+from typing import List, Tuple
+import re
+
+def get_coords(filepath: pathlib.Path) -> Tuple[List[Tuple]]:
+    """Returns a tuple of two lists.
+    
+    The first list contains tuples with the coordinates of the sensors.
+    The second list contains tuples with the coordinates of the corresponding beacons.
+    """
+
+    with open(filepath, "r") as f:
+        lines = f.read().splitlines()
+        sensor_coords = list()
+        beacon_coords = list()
+        for line in lines:
+            sensor_coord = (
+                int(re.findall('x=(-?\d+)', line)[0]),
+                int(re.findall('y=(-?\d+)', line)[0])
+            )
+            sensor_coords.append(sensor_coord)
+            beacon_coord = (
+                int(re.findall('x=(-?\d+)', line)[1]),
+                int(re.findall('y=(-?\d+)', line)[1])
+            )
+            beacon_coords.append(beacon_coord)
+    
+    return (sensor_coords, beacon_coords)
