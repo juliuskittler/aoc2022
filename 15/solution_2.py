@@ -23,9 +23,20 @@ def solution(
     n_pairs = len(sensor_coords)
     available_x_idx = {i for i in range(min_coord, max_coord + 1)}
 
+    # Compute manhattan distances for each sensor and affected ranges of rows
+    dist_dict = {}
+    rows_dict = {}
+    for i in range(n_pairs):
+        dist = manhattan_distance(sensor_coords[i], beacon_coords[i])
+        dist_dict[sensor_coords[i]] = dist
+
+        min_row = sensor_coords[i][1] - dist
+        max_row = sensor_coords[i][1] + dist
+        rows_dict[sensor_coords[i]] = (min_row, max_row)
+
     # Iterate over each row in scope
     for row_idx in range(min_coord, max_coord + 1):
-        if row_idx % 100 == 0:
+        if row_idx % 10 == 0:
             print(row_idx)
 
         positions_reached_on_row_idx = set()
@@ -33,19 +44,23 @@ def solution(
         # Iterate over each sensor
         for i in range(n_pairs):
 
-            # Compute manhattan distance between sensor and beacon
-            dist = manhattan_distance(sensor_coords[i], beacon_coords[i])
+            # Check if the current sensor matters for the current row_idx
+            min_row, max_row = rows_dict[sensor_coords[i]]
 
-            # Check quickly if the current sensor reaches the row of interest
-            distance_to_row_idx = abs(sensor_coords[i][1] - row_idx)
-            sensor_reaches_row_idx = distance_to_row_idx <= dist
+            if row_idx >= min_row and row_idx <= max_row:
 
-            # If necessary, compute the positions reached by the sensor
-            if sensor_reaches_row_idx:
+                # Retrieve manhattan distance
+                dist = dist_dict[sensor_coords[i]]
+
+                # Check quickly if the current sensor reaches the row of interest
+                distance_to_row_idx = abs(sensor_coords[i][1] - row_idx)
+
+                # If necessary, compute the positions reached by the sensor
                 start_x_idx = sensor_coords[i][0] - (dist - distance_to_row_idx)
                 end_x_idx = sensor_coords[i][0] + (dist - distance_to_row_idx) + 1
-                for x_idx in range(start_x_idx, end_x_idx):
-                    positions_reached_on_row_idx.add(x_idx)
+                positions_reached_on_row_idx = positions_reached_on_row_idx.union(
+                    set(range(start_x_idx, end_x_idx))
+                )
 
         # Check if there is any position that is not covered and if so, stop...
         not_covered = available_x_idx - positions_reached_on_row_idx
