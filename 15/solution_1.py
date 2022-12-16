@@ -57,36 +57,30 @@ def solution(
 
 if __name__ == "__main__":
 
-    # filepath = pathlib.Path("15/input.txt")
-    # sensor_coords, beacon_coords = get_coords(filepath)
-    # row_idx = 2000000
+    filepath = pathlib.Path("15/input.txt")
+    sensor_coords, beacon_coords = get_coords(filepath)
+    row_idx = 2000000
 
-    # print(solution(row_idx, sensor_coords, beacon_coords)) # correct: 4985193
-
-    # # Test 1
-    # filepath = pathlib.Path("15/input_test_1.txt")
-    # sensor_coords_test, beacon_coords_test = get_coords(filepath)
-    # row_idx = 10
-    # expected = 26
-    # solution(row_idx, sensor_coords_test, beacon_coords_test)
-    # assert(solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
-
-    # # Test 2
-    # filepath = pathlib.Path("15/input_test_2.txt")
-    # sensor_coords_test, beacon_coords_test = get_coords(filepath)
-    # row_idx = 10
-    # expected = 12
-    # assert(solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
-
-    # # Test 3
-    # filepath = pathlib.Path("15/input_test_3.txt")
-    # sensor_coords_test, beacon_coords_test = get_coords(filepath)
-    # row_idx = 10
-    # expected = 16
-    # assert(solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+    print(solution(row_idx, sensor_coords, beacon_coords))  # correct: 4985193
 
     # Test 1
     filepath = pathlib.Path("15/input_test_1.txt")
     sensor_coords_test, beacon_coords_test = get_coords(filepath)
-    row_idx = 11
+    row_idx = 10
+    expected = 26
     solution(row_idx, sensor_coords_test, beacon_coords_test)
+    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+
+    # Test 2
+    filepath = pathlib.Path("15/input_test_2.txt")
+    sensor_coords_test, beacon_coords_test = get_coords(filepath)
+    row_idx = 10
+    expected = 12
+    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+
+    # Test 3
+    filepath = pathlib.Path("15/input_test_3.txt")
+    sensor_coords_test, beacon_coords_test = get_coords(filepath)
+    row_idx = 10
+    expected = 16
+    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
