@@ -32,12 +32,12 @@ know that 2 cubes are connected on a single side if
     count the number of subsequent pairs that are connected on a side.
     - Sort by x-axis, z-axis, y-axis (in this order) then do the same.
     - Sort by z-axis, y-axis, x-axis (in this order), then do the same. 
-- Note: What was not clear to me is the case when we have "hidden inner holes". E.g. we 
+- What was not clear to me is the case when we have "hidden inner holes". E.g. we 
 could have an empty area that is fully covered by other cubes. Do we count the inner
-surface area into our overall count or not? It turns out that we do not count the inner
-surface area. I.e., we have to identify inner surface areas and remove it from our
-overall count. That's what I was missing at first because it was not very clear from
-the question prompt.
+surface area into our overall count or not? It turns out that we do count the inner
+surface area just like the outside surface area (based on the test case).
+- Note: Afterwards, I read about alternative solutions and I found this one, which I 
+really like: https://www.youtube.com/watch?v=7tlWvZTPz1c
 """
 
 
@@ -75,48 +75,49 @@ def solution(cubes: Tuple[int]) -> int:
         + count_connected_sides(2, cubes, n_cubes)
     )
 
-    surface_area = 6 * n_cubes - n_connected_sides
+    surface_area = 6 * n_cubes - 2 * n_connected_sides
     return surface_area
 
 
 if __name__ == "__main__":
 
-    # filepath = pathlib.Path("18/input.txt")
-    # cubes = get_cubes(filepath)
+    filepath = pathlib.Path("18/input.txt")
+    cubes = get_cubes(filepath)
 
-    # # Test 1
-    # filepath = pathlib.Path("18/input_test_1.txt")
-    # cubes_test = get_cubes(filepath)
-    # expected = 64
-    # print(solution(cubes_test))
-    # # #assert solution(cubes_test) == expected
+    print(solution(cubes))
+
+    # Test 1
+    filepath = pathlib.Path("18/input_test_1.txt")
+    cubes_test = get_cubes(filepath)
+    expected = 64
+    assert solution(cubes_test) == expected
 
     # Test 2
     filepath = pathlib.Path("18/input_test_2.txt")
     cubes_test = get_cubes(filepath)
-    expected = 36  # 6 connected sides -> 7 * 6 - 6
+    expected = 30  # 6 connected sides -> 7 * 6 - 2*6
     assert solution(cubes_test) == expected
 
     # Test 3
     filepath = pathlib.Path("18/input_test_3.txt")
     cubes_test = get_cubes(filepath)
-    expected = 42  # 6 connected sides -> 8 * 6 - 6
+    expected = 36  # 6 connected sides -> 8 * 6 - 2*6
     assert solution(cubes_test) == expected
 
     # Test 4
     filepath = pathlib.Path("18/input_test_4.txt")
     cubes_test = get_cubes(filepath)
-    expected = 40  # 8 connected sides -> 8 * 6 - 8
+    expected = 32  # 8 connected sides -> 8 * 6 - 2*8
     assert solution(cubes_test) == expected
 
     # Test 5
     filepath = pathlib.Path("18/input_test_5.txt")
     cubes_test = get_cubes(filepath)
-    expected = 45  # 9 connected sides -> 9 * 6 - 9
+    expected = 36  # 9 connected sides -> 9 * 6 - 2*9
     assert solution(cubes_test) == expected
 
     # Test 6
     filepath = pathlib.Path("18/input_test_6.txt")
     cubes_test = get_cubes(filepath)
-    expected = 48  # 12 connected sides -> 10 * 6 - 12
+    expected = 36  # 12 connected sides -> 10 * 6 - 2*12
     assert solution(cubes_test) == expected
