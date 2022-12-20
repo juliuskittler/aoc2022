@@ -37,14 +37,14 @@ def solution(sequence: Tuple[int]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("19/input.txt")
+    filepath = pathlib.Path("20/input.txt")
     with open(filepath, "r") as f:
         sequence = tuple(map(int, f.read().splitlines()))
 
     print(solution(sequence))  # correct: 7848878698663
 
     # Test 1
-    filepath = pathlib.Path("19/input_test_1.txt")
+    filepath = pathlib.Path("20/input_test_1.txt")
     with open(filepath, "r") as f:
         sequence_test = tuple(map(int, f.read().splitlines()))
     expected = 1623178306
