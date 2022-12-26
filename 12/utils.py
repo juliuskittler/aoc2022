@@ -53,7 +53,7 @@ class BreadthFirstSearch:
         self.unique_nodes = set(from_nodes + to_nodes)
         self.n_nodes = len(self.unique_nodes)
 
-    def solve(self, start_node: Any) -> Dict[Any, Any]:
+    def solve(self, start_node: Any) -> None:
         """Traverse the graph with BFS approach (required for reconstruct_path.)
 
         This function does not return anything but saves the 'previous' dict as class
@@ -91,7 +91,7 @@ class BreadthFirstSearch:
                     self.iter[neighbour_node] = i
                     i += 1
 
-        return self.previous
+        return None
 
     def reconstruct_path(self, start_node: Any, end_node: Any) -> List[Any]:
         """Returns the shortest path from a start to an end node as a list of nodes."""
