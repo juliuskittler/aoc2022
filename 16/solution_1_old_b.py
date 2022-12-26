@@ -1,6 +1,5 @@
 import copy
 import pathlib
-from itertools import permutations
 from typing import Dict, List
 
 from utils import BreadthFirstSearch, get_valve_info
@@ -12,10 +11,8 @@ class Solution:
         flow_rates: List[int],
         dest_valves: List[str],
         targ_valves: List[List[str]],
-        verbose: bool = False,
     ) -> None:
         # Initialize useful variables
-        self.verbose = verbose
         self.start_valve = "AA"
         self.start_minute = 0
         self.start_pressure = 0
@@ -90,93 +87,99 @@ class Solution:
                 cost[target_valve] = path_len - 1  # -1 since we don't count start_valve
             self.cost_red[source_valve] = cost
 
-    def _get_max_pressure(self):
+    def _take_action(
+        self,
+        minute: int,
+        valve: str,
+        pressure: int,
+        open_valves: List,
+        skipped_open: int,
+    ):
+        # Ensure that variables don't get overwritten
+        minute = copy.deepcopy(minute)
+        valve = copy.deepcopy(valve)
+        pressure = copy.deepcopy(pressure)
+        open_valves = copy.deepcopy(open_valves)
 
-        # Consider all possible orders of the positive valves
-        n_valves_pos = len(self.valves_pos)
-        permut = permutations(self.valves_pos, n_valves_pos)
+        # From the current valve, visit all valves that are not yet open
+        closed_valves = [v for v in self.graph_red[valve] if v not in open_valves]
 
-        for i, valve_list in enumerate(permut):
-            # i = 1
-            # valve_list = ["DD", "BB", "JJ", "HH", "EE", "CC"]
-            if self.verbose:
-                print("{}: {}".format(i, valve_list))
+        for target_valve in closed_valves:
+            # Get cost of travelling to the respective valves
+            cost = self.cost_red[valve][target_valve]
 
-            # Visit and open first valve
-            valves_opened = 1
-            valve = valve_list[0]
-            pressure = 0
-            cost = self.cost_red[self.start_valve][valve] + 1
-            minute = cost
+            # If we can still go to that valve in the given minutes, do that
             minutes_remaining = self.n_minutes - minute
-            pressure_per_minute = self.fr_dict[valve]
+            if minutes_remaining > cost:
 
-            if self.verbose:
-                print(
-                    "Visited: {} minute: {} remaining: {} pressure: {} cost: {}".format(
-                        valve, minute, minutes_remaining, pressure, cost
-                    )
+                # Simulate time and pressure increases until target valve is reached
+                pressure_new = pressure + cost * sum(
+                    [self.fr_dict[open_valve] for open_valve in open_valves]
+                )
+                minute_new = minute + cost
+
+                # Increase max_pressure if possible
+                if pressure_new > self.max_pressure:
+                    self.max_pressure = pressure_new
+                    self.best_path = open_valves
+
+                # From the next target valve, get the maximum pressure again
+                self._get_max_pressure(
+                    minute_new, target_valve, pressure_new, open_valves, skipped_open
                 )
 
-            # Visit and open remaining valves
-            for j, valve in enumerate(valve_list[1:]):
-
-                # Check if the limit is exceeded
-                minutes_remaining = self.n_minutes - minute
-                cost = self.cost_red[valve_list[j]][valve] + 1
-
-                # Continue if there is enough time to reach the next valve
-                if cost <= minutes_remaining:
-                    pressure += cost * pressure_per_minute
-                    minute += cost
-                    pressure_per_minute += self.fr_dict[valve]
-                    valves_opened += 1
-                # Only increase pressure if there is not enough time to reach next valve
-                else:
-                    pressure += minutes_remaining * pressure_per_minute
-
-                    # Check if we can increase the pressure
-                    if pressure > self.max_pressure:
-                        self.max_pressure = pressure
-                    break
-
-                if self.verbose:
-                    print(
-                        "Visited: {} minute: {} remaining: {} pressure: {} cost: {}".format(
-                            valve, minute, minutes_remaining, pressure, cost
-                        )
-                    )
-
-            # If all valves have been visited and there is still time, increase pressure
-            minutes_remaining = self.n_minutes - minute
-            all_valves_opened = valves_opened == n_valves_pos
-            if all_valves_opened and minutes_remaining > 0:
-                pressure += minutes_remaining * pressure_per_minute
-
-            if self.verbose:
-                print(
-                    "Reached pressure: {} (compared to best pressure: {})".format(
-                        pressure, self.max_pressure
-                    )
+            # Otherwise, simply increase the pressure for the period until time is out
+            else:
+                # Simulate time and pressure increases until time is out
+                pressure_new = pressure + minutes_remaining * sum(
+                    [self.fr_dict[open_valve] for open_valve in open_valves]
                 )
 
-            # Check if we can increase the pressure
-            if pressure > self.max_pressure:
-                self.max_pressure = pressure
-                if self.verbose:
-                    print(
-                        "Reached {} at {} with {}".format(
-                            self.max_pressure, i, valve_list[0:]
-                        )
-                    )
+                # Increase max_pressure if possible
+                if pressure_new > self.max_pressure:
+                    self.max_pressure = pressure_new
+                    self.best_path = open_valves
+                    print(self.best_path)
+                    print(self.max_pressure)
+
+    def _get_max_pressure(
+        self,
+        minute: int,
+        valve: str,
+        pressure: int,
+        open_valves: List,
+        skipped_open: int,
+    ):
+        if skipped_open < 3:
+            # Case where we DO NOT open the current valve
+            skipped_open_new = skipped_open + 1
+            self._take_action(minute, valve, pressure, open_valves, skipped_open_new)
+        else:
+            # Case where we open the current valve
+            if valve != self.start_valve:
+                open_valves_new = open_valves + [valve]
+                minute_new = minute + 1
+                skipped_open_new = 0
+                self._take_action(
+                    minute_new, valve, pressure, open_valves_new, skipped_open_new
+                )
 
     def get_solution(self):
 
         # Reduce graph and get corresponding travel cost
         self._get_reduced_graph()
         self._get_travel_cost()
+        # print(self.graph_red)
+        # print(self.cost_red)
 
-        self._get_max_pressure()
+        self._get_max_pressure(
+            self.start_minute,
+            self.start_valve,
+            self.start_pressure,
+            self.start_open_valves,
+            self.start_skipped_open,
+        )
+        print(self.best_path)
         return self.max_pressure
 
 
@@ -185,15 +188,12 @@ if __name__ == "__main__":
     # filepath = pathlib.Path("16/input.txt")
     # flow_rates, dest_valves, targ_valves = get_valve_info(filepath)
 
-    # print(Solution(flow_rates, dest_valves, targ_valves).get_solution())
+    # print(solution(flow_rates, dest_valves, targ_valves))
 
     # Test 1
     filepath = pathlib.Path("16/input_test_1.txt")
     flow_rates_test, dest_valves_test, targ_valves_test = get_valve_info(filepath)
     expected = 1651
-    assert (
-        Solution(
-            flow_rates_test, dest_valves_test, targ_valves_test, True
-        ).get_solution()
-        == expected
-    )
+    # Solution(flow_rates_test, dest_valves_test, targ_valves_test).get_solution()
+    print(Solution(flow_rates_test, dest_valves_test, targ_valves_test).get_solution())
+    # assert solution(flow_rates_test, dest_valves_test, targ_valves_test) == expected
