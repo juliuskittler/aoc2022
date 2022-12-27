@@ -1,7 +1,6 @@
 import copy
 import pathlib
-from itertools import permutations
-from typing import Dict, List
+from typing import List
 
 from utils import BreadthFirstSearch, get_valve_info
 
@@ -12,19 +11,12 @@ class Solution:
         flow_rates: List[int],
         dest_valves: List[str],
         targ_valves: List[List[str]],
-        verbose: bool = False,
     ) -> None:
         # Initialize useful variables
-        self.verbose = verbose
-        self.start_valve = "AA"
-        self.start_minute = 0
-        self.start_pressure = 0
-        self.start_open_valves = []
-        self.start_skipped_open = 0
-
-        self.n_minutes = 30
+        self.init_valve = "AA"
+        self.init_rem_minutes = 30
+        self.pressure_dict = dict()
         self.n_valves = len(dest_valves)
-        self.max_pressure = 0
 
         # Construct a full graph that points from destination valves to target valves
         self.graph = dict()
@@ -38,9 +30,14 @@ class Solution:
 
         # Get a set valves with positive flow_rates
         self.valves_pos = {valve for valve, fr in self.fr_dict.items() if fr > 0}
+        self.n_valves_pos = len(self.valves_pos)
 
         # Get a set consisitng of start valve and valves with positive flow rates
-        self.valves_red = self.valves_pos.union({self.start_valve})
+        self.valves_red = self.valves_pos.union({self.init_valve})
+
+        # Initialize an index for the valves with positive flow_rates
+        self.valves_red_idx = {valve: i for i, valve in enumerate(self.valves_red)}
+        self.init_open_valves = [0] * len(self.valves_red)
 
     def _get_reduced_graph(self):
         """Obtain a graph of reduced valves.
@@ -87,52 +84,50 @@ class Solution:
             for target_valve in target_valves:
                 path = bfs.reconstruct_path(source_valve, target_valve)
                 path_len = len(path)
-                cost[target_valve] = path_len - 1  # -1 since we don't count start_valve
+                cost[target_valve] = path_len - 1  # -1 since we don't count init_valve
             self.cost_red[source_valve] = cost
 
-    def _get_max_pressure(self):
+    def _get_max_pressure(self, valve, rem_minutes, open_valves):
 
-        # Consider all possible orders of the positive valves
-        n_valves_pos = len(self.valves_pos)
-        valve_seqs = permutations(self.valves_pos, n_valves_pos)
+        # Construct key
+        key = (self.valves_red_idx[valve], rem_minutes, *open_valves)
 
-        for valve_seq in valve_seqs:
+        # Only recurse if we have not visited the current state yet
+        if key not in self.pressure_dict:
 
-            # Initialize useful variables
-            valve_seq = ["AA"] + list(valve_seq)  # Add starting point AA
-            valves_opened = 0
-            pressure_per_minute = 0
-            pressure = 0
-            minute = 0
+            max_pressure = 0
 
-            # Visit and open remaining valves
-            for j, valve in enumerate(valve_seq[1:]):
+            # Get list of neighbors of the current valve
+            neighbors = self.graph_red[valve]
 
-                # Check if we already have a solution
+            # Filter down the list to neighbors that have not been opened yet
+            neighbors_unvisited = [
+                n for n in neighbors if not open_valves[self.valves_red_idx[n]]
+            ]
 
-                # Check if the limit is exceeded
-                minutes_remaining = self.n_minutes - minute
-                cost = self.cost_red[valve_seq[j]][valve] + 1
+            # For each neighbor, get the max pressure if we go to this neighbor
+            for valve_new in neighbors_unvisited:
+                rem_minutes_new = rem_minutes - self.cost_red[valve][valve_new] - 1
+                if rem_minutes_new > 0:
 
-                # Continue if there is enough time to reach the next valve
-                if cost <= minutes_remaining:
-                    pressure += cost * pressure_per_minute
-                    minute += cost
-                    pressure_per_minute += self.fr_dict[valve]
-                    valves_opened += 1
-                # Only increase pressure if there is not enough time to reach next valve
-                else:
-                    pressure += minutes_remaining * pressure_per_minute
+                    # Pretend that valve_new is opened
+                    open_valves_new = copy.deepcopy(open_valves)
+                    open_valves_new[self.valves_red_idx[valve_new]] = 1
 
-            # If all valves have been visited and there is still time, increase pressure
-            minutes_remaining = self.n_minutes - minute
-            all_valves_opened = valves_opened == n_valves_pos
-            if all_valves_opened and minutes_remaining > 0:
-                pressure += minutes_remaining * pressure_per_minute
+                    # Compute max presure if we were to go to the valve_new
+                    max_pressure_cand = (
+                        self._get_max_pressure(
+                            valve_new, rem_minutes_new, open_valves_new
+                        )
+                        + self.fr_dict[valve_new] * rem_minutes_new
+                    )
 
-            # Check if we can increase the pressure
-            if pressure > self.max_pressure:
-                self.max_pressure = pressure
+                    max_pressure = max(max_pressure, max_pressure_cand)
+
+            # Save max pressure in our dict for other iterations
+            self.pressure_dict[key] = max_pressure
+
+        return self.pressure_dict[key]
 
     def get_solution(self):
 
@@ -140,16 +135,21 @@ class Solution:
         self._get_reduced_graph()
         self._get_travel_cost()
 
-        self._get_max_pressure()
-        return self.max_pressure
+        # Compute maximum pressure
+        max_pressure = self._get_max_pressure(
+            self.init_valve, self.init_rem_minutes, self.init_open_valves
+        )
+        return max_pressure
 
 
 if __name__ == "__main__":
 
-    # filepath = pathlib.Path("16/input.txt")
-    # flow_rates, dest_valves, targ_valves = get_valve_info(filepath)
+    filepath = pathlib.Path("16/input.txt")
+    flow_rates, dest_valves, targ_valves = get_valve_info(filepath)
 
-    # print(Solution(flow_rates, dest_valves, targ_valves).get_solution())
+    print(
+        Solution(flow_rates, dest_valves, targ_valves).get_solution()
+    )  # correct: 1775
 
     # Test 1
     filepath = pathlib.Path("16/input_test_1.txt")
