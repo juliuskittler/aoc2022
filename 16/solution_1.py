@@ -94,36 +94,25 @@ class Solution:
 
         # Consider all possible orders of the positive valves
         n_valves_pos = len(self.valves_pos)
-        permut = permutations(self.valves_pos, n_valves_pos)
+        valve_seqs = permutations(self.valves_pos, n_valves_pos)
 
-        for i, valve_list in enumerate(permut):
-            # i = 1
-            # valve_list = ["DD", "BB", "JJ", "HH", "EE", "CC"]
-            if self.verbose:
-                print("{}: {}".format(i, valve_list))
+        for valve_seq in valve_seqs:
 
-            # Visit and open first valve
-            valves_opened = 1
-            valve = valve_list[0]
+            # Initialize useful variables
+            valve_seq = ["AA"] + list(valve_seq)  # Add starting point AA
+            valves_opened = 0
+            pressure_per_minute = 0
             pressure = 0
-            cost = self.cost_red[self.start_valve][valve] + 1
-            minute = cost
-            minutes_remaining = self.n_minutes - minute
-            pressure_per_minute = self.fr_dict[valve]
-
-            if self.verbose:
-                print(
-                    "Visited: {} minute: {} remaining: {} pressure: {} cost: {}".format(
-                        valve, minute, minutes_remaining, pressure, cost
-                    )
-                )
+            minute = 0
 
             # Visit and open remaining valves
-            for j, valve in enumerate(valve_list[1:]):
+            for j, valve in enumerate(valve_seq[1:]):
+
+                # Check if we already have a solution
 
                 # Check if the limit is exceeded
                 minutes_remaining = self.n_minutes - minute
-                cost = self.cost_red[valve_list[j]][valve] + 1
+                cost = self.cost_red[valve_seq[j]][valve] + 1
 
                 # Continue if there is enough time to reach the next valve
                 if cost <= minutes_remaining:
@@ -135,40 +124,15 @@ class Solution:
                 else:
                     pressure += minutes_remaining * pressure_per_minute
 
-                    # Check if we can increase the pressure
-                    if pressure > self.max_pressure:
-                        self.max_pressure = pressure
-                    break
-
-                if self.verbose:
-                    print(
-                        "Visited: {} minute: {} remaining: {} pressure: {} cost: {}".format(
-                            valve, minute, minutes_remaining, pressure, cost
-                        )
-                    )
-
             # If all valves have been visited and there is still time, increase pressure
             minutes_remaining = self.n_minutes - minute
             all_valves_opened = valves_opened == n_valves_pos
             if all_valves_opened and minutes_remaining > 0:
                 pressure += minutes_remaining * pressure_per_minute
 
-            if self.verbose:
-                print(
-                    "Reached pressure: {} (compared to best pressure: {})".format(
-                        pressure, self.max_pressure
-                    )
-                )
-
             # Check if we can increase the pressure
             if pressure > self.max_pressure:
                 self.max_pressure = pressure
-                if self.verbose:
-                    print(
-                        "Reached {} at {} with {}".format(
-                            self.max_pressure, i, valve_list[0:]
-                        )
-                    )
 
     def get_solution(self):
 
@@ -192,8 +156,6 @@ if __name__ == "__main__":
     flow_rates_test, dest_valves_test, targ_valves_test = get_valve_info(filepath)
     expected = 1651
     assert (
-        Solution(
-            flow_rates_test, dest_valves_test, targ_valves_test, True
-        ).get_solution()
+        Solution(flow_rates_test, dest_valves_test, targ_valves_test).get_solution()
         == expected
     )
