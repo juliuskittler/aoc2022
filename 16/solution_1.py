@@ -4,6 +4,34 @@ from typing import List
 
 from utils import BreadthFirstSearch, get_valve_info
 
+"""
+Note: 
+- The approach is as follows:
+    - Reduce the graph to a graph that only consists of valves with positive flow rate.
+    This is simply done by filtering out irrelevant valves.
+    - Compute the travel cost for all pairs of valves in this reduced graph (i.e. how 
+    many minutes does it take to travel from one valve to the other). This is done with
+    Breadth First Search.
+    - Recursively traverse the graph with a Depth First Search approach. I.e., we only 
+    attempt new paths once we have reached a leaf node for the current path. The leaf
+    node represents the maximum pressure that can be released with the current path.
+    - The number of paths is huge. We have 15 valves with positive flow rates. Assuming
+    all valves of all possible paths can be visited (without a time out), we have 
+    factorial(15) paths that we would attempt to try out until there is a time out. 
+    That's more than 1 trillion paths.
+    - Therefore, we speed up the process with a trick. We still consider all paths but
+    we take a shortcut whenever possible. We represent the current state with three
+    elements: the current valve, the number of remaining minutes (after opening the
+    current valve), the list of valves that are already open. Regardless of how we 
+    reached this state, the best maximum pressure that can be reached from this state 
+    will always be the same. We don't need to know the exact path that gives us this 
+    maximum pressure. Instead, we only need to know the value of the maximum pressure. 
+    So, we simply create a lookup dictionary that stores the maximum pressure for each 
+    state that we have visited already. If the same state happens to be visited again, 
+    then we simply return the maximum pressure of that state from the lookup table 
+    instead of recursing down our graph and trying out all paths again.
+"""
+
 
 class Solution:
     def __init__(
