@@ -64,8 +64,8 @@ class Solution:
         self.valves_red = self.valves_pos.union({self.init_valve})
 
         # Initialize an index for the valves with positive flow_rates
-        self.valves_red_idx = {valve: i for i, valve in enumerate(self.valves_red)}
-        self.init_open_valves = [0] * len(self.valves_red)
+        self.valves_red_idx = {valve: i + 1 for i, valve in enumerate(self.valves_pos)}
+        self.valves_red_idx["AA"] = 0
 
     def _get_reduced_graph(self):
         """Obtain a graph of reduced valves.
@@ -164,8 +164,9 @@ class Solution:
         self._get_travel_cost()
 
         # Compute maximum pressure
+        init_open_valves = [0] * len(self.valves_red)  # all valves are closed initially
         max_pressure = self._get_max_pressure(
-            self.init_valve, self.init_rem_minutes, self.init_open_valves
+            self.init_valve, self.init_rem_minutes, init_open_valves
         )
         return max_pressure
 
