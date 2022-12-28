@@ -100,15 +100,9 @@ class Solution:
                 n_geo_r_new = n_geo_r + 1
                 max_geodes_geo = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r,
@@ -133,15 +127,9 @@ class Solution:
                 n_ore_r_new = n_ore_r + 1
                 max_geodes_ore = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r_new,
                         n_cla_r,
@@ -166,15 +154,9 @@ class Solution:
                 n_cla_r_new = n_cla_r + 1
                 max_geodes_cla = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r_new,
@@ -205,15 +187,9 @@ class Solution:
                 n_obs_r_new = n_obs_r + 1
                 max_geodes_obs = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r,
@@ -260,18 +236,9 @@ class Solution:
             # Initialize cache for the current blueprint
             self.cache = {}
 
-            # Recursively get the maximum number of geodes
-            key = (
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                24,
-            )  # start with 1 obsidian robot, 24 minutes
+            # Recursively get the maximum number of geodes (start with 1 obsidian robot,
+            # 24 minutes remaining)
+            key = (0, 0, 0, 0, 1, 0, 0, 0, 24)
             max_geodes = self.get_max_geodes(key)
 
             # Compute quality level and update sum of quality levels

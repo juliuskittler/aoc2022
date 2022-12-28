@@ -10,6 +10,8 @@ the function get_solution. Instead of 24 minutes, 32 minutes are made available.
 Instead of all blueprints, only the first 3 blueprints are considered. Instead of 
 summing up the quality levels of the blueprints, the maximum number of geodes
 of each of the blueprints are multiplied and returned as answer.
+- The run time is longer than for part 1, it takes more than 1 minute. The test case
+takes much longer to run than the puzzle case.
 """
 
 
@@ -38,8 +40,8 @@ class Solution:
         if rem_mins == 0:
             return n_geo
 
-        # We have 5 options and need to return the maximum number of geodes that can
-        # be returned with any of these: 1) do nothing, 2) produce geode robot,
+        # We have 5 possible actions and need to return the maximum number of geodes
+        # that can be returned with any of these: 1) do nothing, 2) produce geode robot,
         # 3) produce ore robot, 4) produce clay robot, 5) produce obsidian robot.
         max_geodes_list = list()
 
@@ -67,15 +69,9 @@ class Solution:
                 n_geo_r_new = n_geo_r + 1
                 max_geodes_geo = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r,
@@ -100,15 +96,9 @@ class Solution:
                 n_ore_r_new = n_ore_r + 1
                 max_geodes_ore = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r_new,
                         n_cla_r,
@@ -133,15 +123,9 @@ class Solution:
                 n_cla_r_new = n_cla_r + 1
                 max_geodes_cla = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r_new,
@@ -172,15 +156,9 @@ class Solution:
                 n_obs_r_new = n_obs_r + 1
                 max_geodes_obs = self.get_max_geodes(
                     (
-                        min(
-                            n_ore_new, self.max_ore * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_cla_new, self.max_cla * rem_mins_new
-                        ),  # for better caching
-                        min(
-                            n_obs_new, self.max_obs * rem_mins_new
-                        ),  # for better caching
+                        min(n_ore_new, self.max_ore * rem_mins_new),
+                        min(n_cla_new, self.max_cla * rem_mins_new),
+                        min(n_obs_new, self.max_obs * rem_mins_new),
                         n_geo_new,
                         n_ore_r,
                         n_cla_r,
@@ -212,11 +190,7 @@ class Solution:
                 self.obs_for_geo_r,  # Obsidian that we need to spend for a geode robot
             ) = blueprint
 
-            # Compute the maximum amount of resource that we can spend per iteration for
-            # any robot. We can only produce 1 robot per iteration. E.g., if we can
-            # spend at most 7 obsidian in a given round (to produce the robot that
-            # costs the maximum amount of obsidian among all robots), thenwe never need
-            # more than 7 obsidian robots.
+            # Compute maximum resource that we can spend per iteration for any robot.
             self.max_ore = max(
                 [
                     self.ore_for_ore_r,
@@ -231,18 +205,9 @@ class Solution:
             # Initialize cache for the current blueprint
             self.cache = {}
 
-            # Recursively get the maximum number of geodes
-            key = (
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                32,
-            )  # start with 1 obsidian robot, 32 minutes
+            # Recursively get the maximum number of geodes (start with 1 obsidian robot,
+            # 32 minutes remaining)
+            key = (0, 0, 0, 0, 1, 0, 0, 0, 32)
             max_geodes = self.get_max_geodes(key)
 
             # Update product
