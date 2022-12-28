@@ -66,7 +66,7 @@ class Solution:
 
         return (new_i, new_j)
 
-    def _get_steps_required(self, s_pos, e_prev_pos) -> int:
+    def _get_steps_required(self, s_pos: Tuple[int], e_prev_pos: Tuple[int]) -> int:
 
         # Initialize useful variables
         self.prev_pos_set = {s_pos}  # set of positions at the previous step
