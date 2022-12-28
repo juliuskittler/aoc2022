@@ -41,12 +41,6 @@ class Solution:
             self.max_j,
         ) = parse_inputs(filepath)
 
-        # Initialize useful variables
-        self.s_pos = (self.min_i - 1, self.min_j)  # start position
-        self.e_pos = (self.max_i + 1, self.max_j)  # end position
-        self.final_pos = (self.max_i, self.max_j)  # position just before end position
-        self.prev_pos_set = {self.s_pos}  # set of positions at the previous step
-
         # Provide position deltas for each direction
         self.pos_delta = {
             ">": (0, 1),  # move right -> increase j by 1
@@ -91,11 +85,19 @@ class Solution:
 
         return (new_i, new_j)
 
-    def get_solution(self) -> int:
+    def _get_steps_required(self, s_pos, e_prev_pos) -> int:
+
+        # Initialize useful variables
+        self.prev_pos_set = {s_pos}  # set of positions at the previous step
+
         # Iterate until we have found a path to our final position final_pos
-        step = 1
+        step = 0
         path_found = False
         while not path_found:
+
+            # Check termination condition
+            if e_prev_pos in self.prev_pos_set:
+                path_found = True
 
             # Iterate over each blizzard and update its position
             for idx, pos in self.pos_dict.items():
@@ -119,14 +121,18 @@ class Solution:
                         new_pos_set.add(cand_pos)
             self.prev_pos_set = new_pos_set
 
-            # Check termination condition
-            if self.final_pos in self.prev_pos_set:
-                path_found = True
-
             # Update step
             step += 1
 
         return step
+
+    def get_solution(self) -> int:
+
+        # Initialize useful variables
+        s_pos = (self.min_i - 1, self.min_j)  # start position
+        e_prev_pos = (self.max_i, self.max_j)  # position just before end position
+
+        return self._get_steps_required(s_pos, e_prev_pos)
 
 
 if __name__ == "__main__":
@@ -136,10 +142,5 @@ if __name__ == "__main__":
 
     # Test 1
     filepath = pathlib.Path("24/input_test_1.txt")
-    expected = 9
-    assert Solution(filepath).get_solution() == expected
-
-    # Test 2
-    filepath = pathlib.Path("24/input_test_2.txt")
     expected = 18
     assert Solution(filepath).get_solution() == expected
