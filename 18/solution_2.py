@@ -1,7 +1,14 @@
 import pathlib
-from typing import Optional, Tuple
+import sys
+from typing import Tuple
 
 from utils import get_cubes
+
+# Max recursion limit is at 1000 by default in Python. However, my recursive algorithm
+# needs more than that. For the puzzle input, the deltas (max_x-min_x), (max_y-min_y),
+# (max_z-min_z) are 21, 21, 20 respectively. Hence, I am setting the upper recursion
+# limit to 21*21*20, which is the maximum size of our search space.
+sys.setrecursionlimit(21 * 21 * 20)
 
 """
 Note: 
@@ -92,14 +99,6 @@ class Solution:
         start_air_cube = (self.min_x, self.min_y, self.min_z)
         self.find_air_cubes(start_air_cube)
 
-        # print("\nx lims: {}".format((self.min_x, self.max_x)))
-        # print("y lims: {}".format((self.min_y, self.max_y)))
-        # print("z lims: {}".format((self.min_z, self.max_z)))
-        # print("\nlava cubes: {}".format(len(self.lava_cubes)))
-        # print(self.lava_cubes)
-        # print("\nair cubes: {}".format(len(self.air_cubes)))
-        # print(self.air_cubes)
-
         # Compute result and return it
         exterial_surface_area = self.get_exterial_surface_area()
         return exterial_surface_area
@@ -107,8 +106,8 @@ class Solution:
 
 if __name__ == "__main__":
 
-    # filepath = pathlib.Path("18/input.txt")
-    # print(Solution(filepath).get_solution()) # correct:
+    filepath = pathlib.Path("18/input.txt")
+    print(Solution(filepath).get_solution())  # correct: 2060
 
     # Test 1
     filepath = pathlib.Path("18/input_test_1.txt")
