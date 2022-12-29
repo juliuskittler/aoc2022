@@ -1,26 +1,13 @@
-"""2022, day 17, part 1.
+"""2022, day 17, part 2.
 
-- It seems that simply keeping tack of the highest y-coordinates that are filled with
-rocks for all of the x-coordinates is not sufficient. This is because a shape could 
-fall through and insert itself "below" other shapes (by falling down and moving 
-left/right multiple times). E.g. the "|" shape could easily fall through a holes
-and come to halt below other shapes. Where exactly? We need the coordinates of the
-other shapes to really know where.
-- Hence, we need to somehow keep track of the actual tunnel. Idea: We represent each 
-position as a coordinate of (x, y). The tunnel with fallen shapes is hence represented
-as a set of coordinates of all shapes. The falling coordinates are also represented
-as a set of coordinates (the set will have different lengths for different shapes since
-some shapes consist of 4 and others of 5 positions). We keep changing the set of coor-
-dinates of the falling rock until there is overlap between the set of the tunnel
-and the set of the falling rock. Then, we add the previous position of the rock, where
-there was no overlap, to our set of the tunnel.
+See solution_2.ipynb for explanation.
 """
 import pathlib
 
 from utils import get_shape_coords
 
 
-def solution(dir_str: str, n_rocks: int = 2022) -> int:
+def solution(dir_str: str, n_rocks: int = 10000) -> int:
 
     # Initialize useful variables
     x_start_coord = 2  # x-position where the rock starts falling
@@ -36,6 +23,9 @@ def solution(dir_str: str, n_rocks: int = 2022) -> int:
     # We represent the shapes as lists...
     tunnel_coords = set()
     y_tunnel_max = 0
+
+    # Keep delta of y_shape_max from round to round in a list
+    y_tunnel_max_deltas = list()
 
     # For each rock that falls...
     for r in range(n_rocks):
@@ -88,7 +78,14 @@ def solution(dir_str: str, n_rocks: int = 2022) -> int:
 
                 # Update y_tunnel_max with the larget y-coordinate of the current shape
                 y_shape_max = max([coord[1] for coord in shape_coords])
-                y_tunnel_max = max([y_shape_max, y_tunnel_max])
+
+                # Print delta from current y_tunnel_max to y_tunnel_max
+                y_tunnel_max_new = max([y_shape_max, y_tunnel_max])
+                y_tunnel_max_deltas.append(y_tunnel_max_new - y_tunnel_max)
+
+                # Update y_tunnel_max
+                y_tunnel_max = y_tunnel_max_new
+
                 break  # will break in the next iteration
 
             # Move the direction if possible
@@ -126,6 +123,8 @@ def solution(dir_str: str, n_rocks: int = 2022) -> int:
     #     print("|" + "".join(row) + "|")
     # print("+-------+")
 
+    print(y_tunnel_max_deltas)
+
     # Return y_tunnel_max
     return y_tunnel_max
 
@@ -136,11 +135,4 @@ if __name__ == "__main__":
     with open(filepath, "r") as f:
         dir_str = f.read()
 
-    print(solution(dir_str))  # correct: 3151
-
-    # Test 1
-    filepath = pathlib.Path("17/input_test_1.txt")
-    with open(filepath, "r") as f:
-        dir_str_test = f.read()
-    expected = 3068
-    assert solution(dir_str_test) == expected
+    solution(dir_str)
