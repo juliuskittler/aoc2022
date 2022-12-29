@@ -77,9 +77,7 @@ def lists_are_in_order(list_left, list_right):
 
 
 def merge(arr, l, m, r):
-    """
-    Reference: https://www.geeksforgeeks.org/python-program-for-merge-sort/#:~:text=Merge%20Sort%20is%20a%20Divide,assumes%20that%20arr%5Bl..
-    """
+    """Reference: https://www.geeksforgeeks.org/python-program-for-merge-sort/"""
     n1 = m - l + 1
     n2 = r - m
 
