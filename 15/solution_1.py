@@ -1,10 +1,5 @@
-import pathlib
-from typing import List, Tuple
+"""2022, day 15, part 1.
 
-from utils import get_coords, manhattan_distance
-
-"""
-Note:
 - Importantly, the input coordinates have coordinates that lie very far from each other
 (e.g. 87472 vs. 3045894). Therefore, we want to avoid constructing a map this time that 
 covers all coordinates. Instead, we want to focus on the row that we are interested in.
@@ -18,6 +13,11 @@ covers all coordinates. Instead, we want to focus on the row that we are interes
             - Put these positions into a set.
     - Return the length of the set.
 """
+
+import pathlib
+from typing import List, Tuple
+
+from utils import get_coords, manhattan_distance
 
 
 def solution(

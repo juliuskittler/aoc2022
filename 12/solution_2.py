@@ -1,17 +1,16 @@
-import copy
-import pathlib
-import string
-from typing import List, Tuple
+"""2022, day 12, part 2.
 
-from utils import BreadthFirstSearch, get_distance
-
-"""
-Note: 
 - Similar to the previous solution but this time we traverse from E to an "a" node.
 - From all available "a" nodes we have to pick the node that results in the shortest
 possible path from E to the respective "a" node.
 - The "a" node that we choose is simply the first "a" node from our "prev" array.
 """
+
+import copy
+import pathlib
+from typing import List, Tuple
+
+from utils import BreadthFirstSearch, get_distance
 
 
 def get_edge_coords(

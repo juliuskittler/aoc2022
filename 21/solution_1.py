@@ -1,13 +1,13 @@
+"""2022, day 21, part 1.
+
+We start at the root and recursively get the compute the number for each monkey that
+does not come with a number and whoose number we need for the root computation.
+"""
+
 import pathlib
 from typing import Dict
 
 from utils import get_action_dict
-
-"""
-Note: 
-- We start at the root and recursively get the compute the number for each monkey that
-does not come with a number and whoose number we need for the root computation.
-"""
 
 
 def get_number(monkey: str, action_dict: Dict) -> int:

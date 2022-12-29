@@ -1,10 +1,5 @@
-import pathlib
-from typing import List, Tuple
+"""2022, day 15, part 2.
 
-from utils import get_coords, manhattan_distance
-
-"""
-Note:
 - We need to find the 1 position that is not covered by the range of any sensors.
 - For this purpose, we need to essentially check all positions between x and y 
 coordinates of 0 to 4000000. The implementation from solution_1.py is too inefficient!
@@ -42,6 +37,12 @@ following about the position of the distress signal:
         this position is used for the solution.
 - My implementation is still slow... but hey it works :) 
 """
+
+
+import pathlib
+from typing import List, Tuple
+
+from utils import get_coords, manhattan_distance
 
 
 def solution(

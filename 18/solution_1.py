@@ -1,10 +1,5 @@
-import pathlib
-from typing import Optional, Tuple
+"""2022, day 18, part 1.
 
-from utils import get_cubes
-
-"""
-Note:
 - Each cube has 6 sides. We have to count the total number of sides that
 are visible from outside.
 - For instance, if we have 1,1,1 and 2,1,1, then we have 2 cubes lying right next to 
@@ -39,6 +34,11 @@ surface area just like the outside surface area (based on the test case).
 - Note: Afterwards, I read about alternative solutions and I found this one, which I 
 really like: https://www.youtube.com/watch?v=7tlWvZTPz1c
 """
+
+import pathlib
+from typing import Optional, Tuple
+
+from utils import get_cubes
 
 
 def count_connected_sides(ax: int, cubes: Tuple[int], n_cubes: Optional[int] = None):

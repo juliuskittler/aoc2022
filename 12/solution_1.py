@@ -1,11 +1,5 @@
-import copy
-import pathlib
-from typing import List, Tuple
+"""2022, day 12, part 1.
 
-from utils import BreadthFirstSearch, get_distance
-
-"""
-Note: 
 - We assume that at any location (with the exception of S), there are at most 3
 different directions we can go to because we won't go back to the direction which
 we came from.
@@ -20,6 +14,12 @@ take the minimum of all the returned numbers of steps. However, this seems very
 inefficient because we would visit certain positions multiple times.
 - Let's use BFS! Reference: https://www.youtube.com/watch?v=oDqjPvD54Ss
 """
+
+import copy
+import pathlib
+from typing import List, Tuple
+
+from utils import BreadthFirstSearch, get_distance
 
 
 def get_edge_coords(

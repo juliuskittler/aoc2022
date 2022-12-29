@@ -1,11 +1,5 @@
-import copy
-import pathlib
-from typing import Dict
+"""2022, day 11, part 2.
 
-from utils import get_monkey_dict
-
-"""
-Note: 
 - The main concern here is overflow. The worry levels of the items get HUGE!
 - Hence, we need to store the worry level more efficiently.
 - Ultimately, the only aspect that matters is the divisibility.
@@ -19,6 +13,12 @@ the product of all the prime numbers in the list.
 - If we take the modulo of an item's worry level with the LCM, we maintain the 
 divisibility with all of the prime numbers.
 """
+
+import copy
+import pathlib
+from typing import Dict
+
+from utils import get_monkey_dict
 
 
 def solution(monkey_dict: Dict) -> int:

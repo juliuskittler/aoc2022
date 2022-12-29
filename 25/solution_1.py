@@ -1,3 +1,4 @@
+"""2022, day 25, part 1."""
 import pathlib
 
 

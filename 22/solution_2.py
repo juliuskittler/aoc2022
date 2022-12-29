@@ -1,9 +1,5 @@
-import pathlib
-from typing import List, Union
+"""2022, day 22, part 2.
 
-from utils import get_instructions, get_map
-
-"""Note: 
 - The following algorithm scetch could potentially be used (illustrated in example_2.pdf). 
 - However, I did not take the time to implement it in a way that generalizes to 
 different cube shapes. Instead, I kind of cheated and hard-coded the mapping.
@@ -18,6 +14,11 @@ or left and right) and have all edges between them already connected with each o
 in some way (during step 1 or step 2.)
 - 4. Connect the remaining sides to the other sides that are closest to them.
 """
+
+import pathlib
+from typing import List, Union
+
+from utils import get_instructions, get_map
 
 
 def solution(

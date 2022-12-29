@@ -1,8 +1,5 @@
-import pathlib
-from typing import Tuple
+"""2022, day 20, part 1.
 
-"""
-Note: 
 - The positions are not exactly aligned with the example from the problem statement but 
 that is no issue since the correct order is preserved. Example: If there is a -2 at
 index 2, the new position will be inserted at 2-2=0. I.e. it will be insertet at the
@@ -18,6 +15,10 @@ each element is uniquely idenfied.
     - i_now is the index of the value at the beginning of the current iteration.
     - i_new is the index of the value at the end of the current iteration.
 """
+
+
+import pathlib
+from typing import Tuple
 
 
 def solution(sequence: Tuple[int]) -> int:

@@ -1,3 +1,4 @@
+"""2022, day 11, part 1."""
 import copy
 import pathlib
 from typing import Dict

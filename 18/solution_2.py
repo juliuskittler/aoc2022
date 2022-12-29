@@ -1,17 +1,5 @@
-import pathlib
-import sys
-from typing import Tuple
+"""2022, day 18, part 2.
 
-from utils import get_cubes
-
-# Max recursion limit is at 1000 by default in Python. However, my recursive algorithm
-# needs more than that. For the puzzle input, the deltas (max_x-min_x), (max_y-min_y),
-# (max_z-min_z) are 21, 21, 20 respectively. Hence, I am setting the upper recursion
-# limit to 21*21*20, which is the maximum size of our search space.
-sys.setrecursionlimit(21 * 21 * 20)
-
-"""
-Note: 
 - We are supposed to not count surfaces of encosed areas ("air pockets") this time.
 - There are 2 possible approaches essentially:
     - a) identify all ENCLOSED areas of air cubes, compute the sum of the surface areas
@@ -25,6 +13,18 @@ where all air cubes are connected with each other through other air cubes, we ca
 use a recursive approach to build a set of all air cubes. (Each air cube is represented 
 by a 3D coordinate.) In contrast, such a recursive approach would not work for a).
 """
+
+import pathlib
+import sys
+from typing import Tuple
+
+from utils import get_cubes
+
+# Max recursion limit is at 1000 by default in Python. However, my recursive algorithm
+# needs more than that. For the puzzle input, the deltas (max_x-min_x), (max_y-min_y),
+# (max_z-min_z) are 21, 21, 20 respectively. Hence, I am setting the upper recursion
+# limit to 21*21*20, which is the maximum size of our search space.
+sys.setrecursionlimit(21 * 21 * 20)
 
 
 class Solution:

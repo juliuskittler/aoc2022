@@ -1,10 +1,5 @@
-import math
-import pathlib
-import re
-from typing import Tuple
+"""2022, day 19, part 2.
 
-"""
-Note:
 - The solution is almost the same as for part 1, with the difference being only in
 the function get_solution. Instead of 24 minutes, 32 minutes are made available.
 Instead of all blueprints, only the first 3 blueprints are considered. Instead of 
@@ -13,6 +8,11 @@ of each of the blueprints are multiplied and returned as answer.
 - The run time is longer than for part 1, it takes more than 1 minute. The test case
 takes much longer to run than the puzzle case.
 """
+
+import math
+import pathlib
+import re
+from typing import Tuple
 
 
 class Solution:

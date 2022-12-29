@@ -1,9 +1,5 @@
-import pathlib
+"""2022, day 17, part 1.
 
-from utils import get_shape_coords
-
-"""
-Note: Similar to Tetris :D
 - It seems that simply keeping tack of the highest y-coordinates that are filled with
 rocks for all of the x-coordinates is not sufficient. This is because a shape could 
 fall through and insert itself "below" other shapes. 
@@ -16,6 +12,9 @@ dinates of the falling rock until there is overlap between the set of the tunnel
 and the set of the falling rock. Then, we add the previous position of the rock, where
 there was no overlap, to our set of the tunnel.
 """
+import pathlib
+
+from utils import get_shape_coords
 
 
 def solution(dir_str: str, n_rocks: int = 2022) -> int:

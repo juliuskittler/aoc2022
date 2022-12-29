@@ -1,3 +1,4 @@
+"""2022, day 9, part 2."""
 import pathlib
 from typing import List, Tuple
 

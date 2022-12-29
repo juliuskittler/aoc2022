@@ -1,12 +1,5 @@
-import copy
-import itertools
-import pathlib
-from typing import List
+"""2022, day 16, part 2.
 
-from utils import BreadthFirstSearch, get_valve_info
-
-"""
-Note:
 - This takes a bit longer to run than part 1 but it still completes in 1 minute or so.
 - In this part 2, we have only 26 instead of 30 minutes and we have another 'you', 
 namely an elephant, who helps traversing the graph and opening valves.
@@ -22,6 +15,13 @@ elephant's set). Note that the "set of valves to visit" is encoded as open_valve
 parameter, where we basically pretend that certain valves have already been visited
 before and therefore should not be visited anymore by you or the elephant.
 """
+
+import copy
+import itertools
+import pathlib
+from typing import List
+
+from utils import BreadthFirstSearch, get_valve_info
 
 
 class Solution:

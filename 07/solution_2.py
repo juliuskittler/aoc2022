@@ -1,8 +1,4 @@
-"""
-Assumption:
-- We make an important assumption about the order of the terminal outputs. The assumption
-is that we only go a directory up if we have seen all files of the subdirectories.
-"""
+"""2022, day 7, part 2."""
 
 import pathlib
 from typing import List

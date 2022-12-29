@@ -1,3 +1,4 @@
+"""2022, day 22, part 1."""
 import pathlib
 from typing import List, Union
 

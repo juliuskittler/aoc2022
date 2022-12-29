@@ -1,11 +1,7 @@
-import pathlib
-from typing import Tuple
+"""2022, day 24, part 1.
 
-from utils import parse_inputs
-
-"""
-Note: 
-- 1. Constructing the blizzard field:
+The solution consists of two main steps:
+1. Constructing the blizzard field:
     - The positions of multiple blizzards can overlap at certain iterations. Therefore,
     I decided to keep track of the blizzard positions and their directions not with a 
     2D-array but instead with dictionaries. The key of the dictionaries is the index of 
@@ -14,7 +10,7 @@ Note:
     the respective blizzard.
     - Essentially, we need to iteratively change the positions of all blizzards based on 
     a) their direction and b) their current position. 1 iteration happens in 1 minute.
-- 2. Finding the shortest path in the blizzard field:
+2. Finding the shortest path in the blizzard field:
     - Essentially, we want to find the shortest path from our starting position to our
     end position. Actually... we are not trying to find the shortest path but instead
     the path that takes the smallest possible number of minutes. Essentially, we can 
@@ -27,6 +23,10 @@ Note:
     reflected in the new set at all because itself and all its sourrounding positions 
     may be covered by blizzards.
 """
+import pathlib
+from typing import Tuple
+
+from utils import parse_inputs
 
 
 class Solution:

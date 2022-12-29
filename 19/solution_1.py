@@ -1,9 +1,5 @@
-import math
-import pathlib
-import re
-from typing import Tuple
+"""2022, day 19, part 1.
 
-"""Note:
 - This solution is readable but a lot of code is duplicated. The code could have been
 condensed by not representing the values from the blueprints as individual values.
 Instead, the values should be formatted as list of dicts, with one dict for each robot.
@@ -44,6 +40,11 @@ as mentioned we would never be able to use more of the particular raw material).
 - Reference: I was struggeling with this problem and this video by hyper-neutrino 
 helped me a lot: https://www.youtube.com/watch?v=H3PSODv4nf0&t=683s
 """
+
+import math
+import pathlib
+import re
+from typing import Tuple
 
 
 class Solution:

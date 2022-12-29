@@ -1,13 +1,13 @@
+"""2022, day 24, part 2.
+
+My code from part 1 is essentially reused, just that we call the algorithm multiple
+times with different start and end positions and sum up all the steps taken.
+"""
+
 import pathlib
 from typing import Tuple
 
 from utils import parse_inputs
-
-"""
-Note:
-- My code from part 1 is essentially reused, just that we call the algorithm multiple
-times with different start and end positions and sum up all the steps taken.
-"""
 
 
 class Solution:

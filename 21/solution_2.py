@@ -1,10 +1,5 @@
-import pathlib
-from typing import Dict
+"""2022, day 21, part 2.
 
-from utils import get_action_dict
-
-"""
-Note: 
 - Initially, we need to understand which of the 2 monkeys in the root operation can be 
 influenced by what the human 'humn' says. The monkey that cannot be influenced is fixed.
 We can compute the number for this monkey as before with our recursive get_number
@@ -13,6 +8,12 @@ variable. It's number will be our 'x' that we need to find.
 - For the monkey that is variable, we recursively compute the 'x' (which will then 
 become the new target during the next recursion step) until we have reached 'humn'.
 """
+
+
+import pathlib
+from typing import Dict
+
+from utils import get_action_dict
 
 
 class Solution:

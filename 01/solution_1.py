@@ -1,4 +1,4 @@
-"""2022, Day 1, Part 1"""
+"""2022, day 1, part 1."""
 import pathlib
 from typing import List
 

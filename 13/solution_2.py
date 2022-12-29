@@ -1,16 +1,16 @@
-import pathlib
-from typing import List
+"""2022, day 13, part 2.
 
-from utils import get_lists, merge_sort
-
-"""
-Note: 
 - We need to use our lists_are_in_order function to sort all lists in our input!
 - Common sorting algorithms are Quicksort, Heapsort Mergesort. We will use Mergesort!
 - References:
     - https://en.wikipedia.org/wiki/Sorting_algorithm
     - https://lamfo-unb.github.io/2019/04/21/Sorting-algorithms/#:~:text=%2B1%5D%20%3D%20temp-,Quicksort,greater%20numbers%20on%20the%20right.
 """
+
+import pathlib
+from typing import List
+
+from utils import get_lists, merge_sort
 
 
 def solution(lists: List[List]) -> int:
