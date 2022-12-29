@@ -113,13 +113,8 @@ def solution(
     y = 1
     x = [j for j in range(1, n_cols - 1) if map[1][j] != " "][
         0
-    ]  # first non-space element
+    ]  # 1st non-space element
     d = "r"
-
-    # print(v9)
-    for i, v in enumerate([v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12]):
-        print(i + 1)
-        print("".join([map[i][j] for (i, j) in v]))
 
     # Traverse the map as specified by the instructions
     for inst in instructions:
