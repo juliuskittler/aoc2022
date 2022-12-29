@@ -47,6 +47,8 @@ def solution(map: List[str], verbose: bool = False) -> int:
 
         # Initialize the set of new elve coordinates to be used in the next iteration
         new_elve_coords = dict()
+
+        # Initialize dict that mapes new elve coordinates to number of elves interested
         cnt_per_coord = dict()
 
         # Initialize count of elves that do not want to move anymore
@@ -136,7 +138,9 @@ def solution(map: List[str], verbose: bool = False) -> int:
             complete = True
 
         # Update elve_coords for the next iteration
-        elve_coords = new_elve_coords.values()
+        elve_coords = set(
+            new_elve_coords.values()
+        )  # set conversion essential for speed
 
         # Update the order for the next iteration
         if move_idx == move_idx_max:

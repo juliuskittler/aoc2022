@@ -3,12 +3,6 @@ from typing import List
 
 from utils import print_map
 
-"""
-Note:
-- Inefficient solution. Runs for a way too long time. I did this late at night after
-spending time with family. So, I decided to just let it run :)
-"""
-
 
 def solution(map: List[str], verbose: bool = False) -> int:
 
@@ -50,8 +44,10 @@ def solution(map: List[str], verbose: bool = False) -> int:
 
     while not complete:
 
-        # Initialize the set of new elve coordinates to be used in the next iteration
+        # Initialize dict that maps current elve coordinates to new elve coordinates
         new_elve_coords = dict()
+
+        # Initialize dict that mapes new elve coordinates to number of elves interested
         cnt_per_coord = dict()
 
         # Initialize count of elves that do not want to move anymore
@@ -141,7 +137,9 @@ def solution(map: List[str], verbose: bool = False) -> int:
             complete = True
 
         # Update elve_coords for the next iteration
-        elve_coords = new_elve_coords.values()
+        elve_coords = set(
+            new_elve_coords.values()
+        )  # set conversion essential for speed
 
         # Update the order for the next iteration
         if move_idx == move_idx_max:
@@ -151,10 +149,6 @@ def solution(map: List[str], verbose: bool = False) -> int:
 
         # Update round index
         round_idx += 1
-
-        # Print out current index
-        if round_idx % 10 == 0:
-            print(round_idx)
 
     # Print the final map if we're verbose
     if verbose:
@@ -169,7 +163,7 @@ if __name__ == "__main__":
     with open(filepath, "r") as f:
         map_test = f.read().splitlines()
 
-    print(solution(map_test, verbose=True))  # correct: 1008
+    print(solution(map_test))  # correct: 1008
 
     # Test 1
     filepath = pathlib.Path("23/input_test_1.txt")
