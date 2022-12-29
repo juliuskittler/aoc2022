@@ -49,7 +49,7 @@ def solution(
     for i in range(n_pairs):
         if beacon_coords[i][1] == row_idx:
             positions_reached_on_row_idx -= {beacon_coords[i][0]}
-    print(sorted([x for x in positions_reached_on_row_idx]))
+
     # Return the number of positions reached by the sensors on row_idx
     n_positions_reached = len(positions_reached_on_row_idx)
     return n_positions_reached
