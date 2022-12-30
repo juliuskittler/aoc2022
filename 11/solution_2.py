@@ -1,4 +1,4 @@
-"""2022, day 11, part 2.
+"""2022, day 11, part 2: https://adventofcode.com/2022/day/11.
 
 - The main concern here is overflow. The worry levels of the items get HUGE!
 - Hence, we need to store the worry level more efficiently.

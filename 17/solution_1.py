@@ -1,4 +1,4 @@
-"""2022, day 17, part 1.
+"""2022, day 17, part 1: https://adventofcode.com/2022/day/17.
 
 - It seems that simply keeping tack of the highest y-coordinates that are filled with
 rocks for all of the x-coordinates is not sufficient. This is because a shape could

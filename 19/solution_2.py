@@ -1,4 +1,4 @@
-"""2022, day 19, part 2.
+"""2022, day 19, part 2: https://adventofcode.com/2022/day/19.
 
 - The solution is almost the same as for part 1, with the difference being only in
 the function get_solution. Instead of 24 minutes, 32 minutes are made available.

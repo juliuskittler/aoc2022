@@ -1,4 +1,4 @@
-"""2022, day 24, part 2.
+"""2022, day 24, part 2: https://adventofcode.com/2022/day/24.
 
 My code from part 1 is essentially reused, just that we call the algorithm multiple
 times with different start and end positions and sum up all the steps taken.

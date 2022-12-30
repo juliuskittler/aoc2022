@@ -1,4 +1,4 @@
-"""2022, day 12, part 2.
+"""2022, day 12, part 2: https://adventofcode.com/2022/day/12.
 
 - Similar to the previous solution but this time we traverse from E to an "a" node.
 - From all available "a" nodes we have to pick the node that results in the shortest

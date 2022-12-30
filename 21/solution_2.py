@@ -1,4 +1,4 @@
-"""2022, day 21, part 2.
+"""2022, day 21, part 2: https://adventofcode.com/2022/day/21.
 
 - Initially, we need to understand which of the 2 monkeys in the root operation can be
 influenced by what the human 'humn' says. The monkey that cannot be influenced is fixed.

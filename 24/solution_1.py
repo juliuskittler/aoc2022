@@ -1,4 +1,4 @@
-"""2022, day 24, part 1.
+"""2022, day 24, part 1: https://adventofcode.com/2022/day/24.
 
 The solution consists of two main steps:
 1. Constructing the blizzard field:

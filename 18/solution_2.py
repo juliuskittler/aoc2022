@@ -1,4 +1,4 @@
-"""2022, day 18, part 2.
+"""2022, day 18, part 2: https://adventofcode.com/2022/day/18.
 
 - We are supposed to not count surfaces of encosed areas ("air pockets") this time.
 - There are 2 possible approaches essentially:

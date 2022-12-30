@@ -1,4 +1,4 @@
-"""2022, day 16, part 1.
+"""2022, day 16, part 1: https://adventofcode.com/2022/day/16.
 
 The approach is as follows:
 - Reduce the graph to a graph that only consists of valves with positive flow rate.

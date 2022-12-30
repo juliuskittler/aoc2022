@@ -1,4 +1,4 @@
-"""2022, day 17, part 2.
+"""2022, day 17, part 2: https://adventofcode.com/2022/day/17.
 
 See solution_2.ipynb for explanation.
 """

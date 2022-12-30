@@ -1,4 +1,4 @@
-"""2022, day 18, part 1.
+"""2022, day 18, part 1: https://adventofcode.com/2022/day/18.
 
 - Each cube has 6 sides. We have to count the total number of sides that
 are visible from outside.

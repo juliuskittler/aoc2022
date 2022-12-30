@@ -1,4 +1,4 @@
-"""2022, day 21, part 1.
+"""2022, day 21, part 1: https://adventofcode.com/2022/day/21.
 
 We start at the root and recursively get the compute the number for each monkey that
 does not come with a number and whoose number we need for the root computation.

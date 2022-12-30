@@ -1,4 +1,4 @@
-"""2022, day 15, part 2.
+"""2022, day 15, part 2: https://adventofcode.com/2022/day/15.
 
 - We need to find the 1 position that is not covered by the range of any sensors.
 - For this purpose, we need to essentially check all positions between x and y

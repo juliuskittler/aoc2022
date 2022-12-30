@@ -1,4 +1,4 @@
-"""2022, day 16, part 2.
+"""2022, day 16, part 2: https://adventofcode.com/2022/day/16.
 
 - This takes a bit longer to run than part 1 but it still completes in 1 minute or so.
 - In this part 2, we have only 26 instead of 30 minutes and we have another 'you',

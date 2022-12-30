@@ -1,4 +1,4 @@
-"""2022, day 12, part 1.
+"""2022, day 12, part 1: https://adventofcode.com/2022/day/12.
 
 - We assume that at any location (with the exception of S), there are at most 3
 different directions we can go to because we won't go back to the direction which

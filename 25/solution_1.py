@@ -1,4 +1,4 @@
-"""2022, day 25, part 1."""
+"""2022, day 25, part 1: https://adventofcode.com/2022/day/25."""
 import pathlib
 
 

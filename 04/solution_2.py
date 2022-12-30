@@ -1,4 +1,4 @@
-"""2022, day 4, part 2."""
+"""2022, day 4, part 2: https://adventofcode.com/2022/day/4."""
 import pathlib
 import re
 from typing import List

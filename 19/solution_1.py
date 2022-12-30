@@ -1,4 +1,4 @@
-"""2022, day 19, part 1.
+"""2022, day 19, part 1: https://adventofcode.com/2022/day/19.
 
 - This solution is readable but a lot of code is duplicated. The code could have been
 condensed by not representing the values from the blueprints as individual values.

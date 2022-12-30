@@ -1,4 +1,4 @@
-"""2022, day 9, part 1.
+"""2022, day 9, part 1: https://adventofcode.com/2022/day/9.
 
 The difficulty seems to be that we don't know the dimensions of the grid where the
 movements will take place up front. This makes it difficult to initialize the grid

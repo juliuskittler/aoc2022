@@ -1,4 +1,4 @@
-"""2022, day 22, part 2.
+"""2022, day 22, part 2: https://adventofcode.com/2022/day/22.
 
 - The following algorithm scetch could potentially be used (illustrated in example_2.pdf).
 - However, I did not take the time to implement it in a way that generalizes to

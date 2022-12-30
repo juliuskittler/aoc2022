@@ -1,4 +1,4 @@
-"""2022, day 20, part 1.
+"""2022, day 20, part 1: https://adventofcode.com/2022/day/20.
 
 - The positions are not exactly aligned with the example from the problem statement but
 that is no issue since the correct order is preserved. Example: If there is a -2 at

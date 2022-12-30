@@ -1,4 +1,4 @@
-"""2022, day 15, part 1.
+"""2022, day 15, part 1: https://adventofcode.com/2022/day/15.
 
 Importantly, the input coordinates have coordinates that lie very far from each other
 (e.g. 87472 vs. 3045894). Therefore, we want to avoid constructing a map that covers all

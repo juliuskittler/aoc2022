@@ -1,4 +1,4 @@
-"""2022, day 7, part 1.
+"""2022, day 7, part 1: https://adventofcode.com/2022/day/7.
 
 We make an important assumption about the order of the terminal outputs. The assumption
 is that we only go a directory up if we have seen all files of the subdirectories.
