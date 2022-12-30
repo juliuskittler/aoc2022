@@ -3,10 +3,10 @@
 Importantly, the input coordinates have coordinates that lie very far from each other
 (e.g. 87472 vs. 3045894). Therefore, we want to avoid constructing a map that covers all
  coordinates. Instead, we want to focus on the row that we are interested in.
-- For each sensor S, 
+- For each sensor S,
     - ... compute the manhattan distance D to its closest beacon.
-    - ... check if the same manhattan distance D reaches the given row R at any 
-    position (by checking directly above or below the sensor position, 
+    - ... check if the same manhattan distance D reaches the given row R at any
+    position (by checking directly above or below the sensor position,
     i.e. on the same x-axis coordinate).
         - If it does, compute all positions on the given row R that are reached by
         the sensor S with the manhattan distance D.

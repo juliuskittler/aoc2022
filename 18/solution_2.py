@@ -3,14 +3,14 @@
 - We are supposed to not count surfaces of encosed areas ("air pockets") this time.
 - There are 2 possible approaches essentially:
     - a) identify all ENCLOSED areas of air cubes, compute the sum of the surface areas
-    of lava that touches these enclosed areas and then subtract this sum from the 
+    of lava that touches these enclosed areas and then subtract this sum from the
     overall sum of all surface areas (computed in part 1)
     - b) identify the OPEN area of air cubes, compute the sum of the surface areas of
     lava that touches these open areas and that's the answer.
-- Approach b) seems more easy to implement. This is mainly because in b) there is just 
-1 open area whereas in a) there are multiple enclosed areas. If we have 1 open area 
+- Approach b) seems more easy to implement. This is mainly because in b) there is just
+1 open area whereas in a) there are multiple enclosed areas. If we have 1 open area
 where all air cubes are connected with each other through other air cubes, we can
-use a recursive approach to build a set of all air cubes. (Each air cube is represented 
+use a recursive approach to build a set of all air cubes. (Each air cube is represented
 by a 3D coordinate.) In contrast, such a recursive approach would not work for a).
 """
 

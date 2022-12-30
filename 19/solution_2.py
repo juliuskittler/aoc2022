@@ -2,7 +2,7 @@
 
 - The solution is almost the same as for part 1, with the difference being only in
 the function get_solution. Instead of 24 minutes, 32 minutes are made available.
-Instead of all blueprints, only the first 3 blueprints are considered. Instead of 
+Instead of all blueprints, only the first 3 blueprints are considered. Instead of
 summing up the quality levels of the blueprints, the maximum number of geodes
 of each of the blueprints are multiplied and returned as answer.
 - The run time is longer than for part 1, it takes more than 1 minute. The test case

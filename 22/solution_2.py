@@ -1,16 +1,16 @@
 """2022, day 22, part 2.
 
-- The following algorithm scetch could potentially be used (illustrated in example_2.pdf). 
-- However, I did not take the time to implement it in a way that generalizes to 
+- The following algorithm scetch could potentially be used (illustrated in example_2.pdf).
+- However, I did not take the time to implement it in a way that generalizes to
 different cube shapes. Instead, I kind of cheated and hard-coded the mapping.
 - The idea for an algorithm I would use if I had to implement it in a generalizable way:
-- 1. We start by mapping edges that are connected at 1 point and have a 90 degree angle 
+- 1. We start by mapping edges that are connected at 1 point and have a 90 degree angle
 between them.
-- 2. We proceeed by mapping edges that point in the same direction (e.g. both right, 
+- 2. We proceeed by mapping edges that point in the same direction (e.g. both right,
 both left, both up or both down) and have all edges between them connected with each
 other in some way (during step 1 or step 2.)
 - 3. We proceed by mapping edges that point in the opposite direction (e.g. up and down
-or left and right) and have all edges between them already connected with each other 
+or left and right) and have all edges between them already connected with each other
 in some way (during step 1 or step 2.)
 - 4. Connect the remaining sides to the other sides that are closest to them.
 """

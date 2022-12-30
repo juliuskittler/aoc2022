@@ -1,17 +1,17 @@
 """2022, day 15, part 2.
 
 - We need to find the 1 position that is not covered by the range of any sensors.
-- For this purpose, we need to essentially check all positions between x and y 
+- For this purpose, we need to essentially check all positions between x and y
 coordinates of 0 to 4000000. The implementation from solution_1.py is too inefficient!
 - I'm using this hint. It illustrates that we don't need to iterate over all coordinates:
 https://www.reddit.com/r/adventofcode/comments/zmfwg1/2022_day_15_part_2_seekin_for_the_beacon/
 - Approach:
     - We need to iterate over the coordinates of 1 position outside of the outer
-limit of each sensor and add them to a dictionary as a key (only if they fall within 
-the range of our min. and max. coordinates of x and y). 
-    - As value of the corresponding 
+limit of each sensor and add them to a dictionary as a key (only if they fall within
+the range of our min. and max. coordinates of x and y).
+    - As value of the corresponding
 key, we keep track of the count of the respective coordinate. Since the range of each
-sensor is diamond shaped but the range of the grid is diagonal shaped we know the 
+sensor is diamond shaped but the range of the grid is diagonal shaped we know the
 following about the position of the distress signal:
         - If the position is not on the edges or corners of the grid, it will be located
         between at least 4 different diamonds, i.e. between the range of at least
@@ -19,8 +19,8 @@ following about the position of the distress signal:
         ###
         # #
         ###
-        - If the position is on the edges of the grid (not on the corners), it will be 
-        located between at least 2 different diamonds, i.e. between the range of at 
+        - If the position is on the edges of the grid (not on the corners), it will be
+        located between at least 2 different diamonds, i.e. between the range of at
         least 2 different sensors:
         ###      # #      ###      ###
          ##  or  ###  or  ##   or  ###
@@ -35,7 +35,7 @@ following about the position of the distress signal:
         times they appear at the edge of a diamond descendingly.
         - Then, for each position, we check if it is reachable by any sensor. If not,
         this position is used for the solution.
-- My implementation is still slow... but hey it works :) 
+- My implementation is still slow... but hey it works :)
 """
 
 

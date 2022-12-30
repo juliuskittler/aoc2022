@@ -1,12 +1,12 @@
 """2022, day 17, part 1.
 
 - It seems that simply keeping tack of the highest y-coordinates that are filled with
-rocks for all of the x-coordinates is not sufficient. This is because a shape could 
-fall through and insert itself "below" other shapes (by falling down and moving 
+rocks for all of the x-coordinates is not sufficient. This is because a shape could
+fall through and insert itself "below" other shapes (by falling down and moving
 left/right multiple times). E.g. the "|" shape could easily fall through a holes
 and come to halt below other shapes. Where exactly? We need the coordinates of the
 other shapes to really know where.
-- Hence, we need to somehow keep track of the actual tunnel. Idea: We represent each 
+- Hence, we need to somehow keep track of the actual tunnel. Idea: We represent each
 position as a coordinate of (x, y). The tunnel with fallen shapes is hence represented
 as a set of coordinates of all shapes. The falling coordinates are also represented
 as a set of coordinates (the set will have different lengths for different shapes since

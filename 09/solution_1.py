@@ -1,8 +1,8 @@
 """2022, day 9, part 1.
 
-The difficulty seems to be that we don't know the dimensions of the grid where the 
-movements will take place up front. This makes it difficult to initialize the grid 
-up-front as an actual grid. What we could do is just use a set with the coordinates 
+The difficulty seems to be that we don't know the dimensions of the grid where the
+movements will take place up front. This makes it difficult to initialize the grid
+up-front as an actual grid. What we could do is just use a set with the coordinates
 relative to the starting point s. This seems the most space-efficient since we only need
 to store positions that T has actually visited, not the ones that it has not visited.
 """

@@ -2,12 +2,12 @@
 
 - Each cube has 6 sides. We have to count the total number of sides that
 are visible from outside.
-- For instance, if we have 1,1,1 and 2,1,1, then we have 2 cubes lying right next to 
+- For instance, if we have 1,1,1 and 2,1,1, then we have 2 cubes lying right next to
 each on ther on the x-axis but they have the same coordinates on the y-axis
 and on the z-axis. Hence, 2 sides are connected since the 2 cubes lie next to each
 other. So the total number of visible sides is: 6+6-2=10
 - Since the cubes all have the same size (1x1x1 cubes), 2 cubes can be connected on
-at most 2 sides. For example, if we want to fully cover up a particular cube, we need 6 
+at most 2 sides. For example, if we want to fully cover up a particular cube, we need 6
 additional cubes: (1,1,1) can be covered up with the cubes:
     - (0, 1, 1) # lies to the left on the x-axis
     - (2, 1, 1) # lies to the right on the x-axis
@@ -22,16 +22,16 @@ that are connected. Then, we can compute the answer as:
 know that 2 cubes are connected on a single side if
     - a) they have the same value on 2 axes,
     - b) they have a delta of 1 on the 3rd axis.
-- Approach: 
-    - Sort by x-axis, y-axis, z-axis (in this order), then iterate over the cubes and 
+- Approach:
+    - Sort by x-axis, y-axis, z-axis (in this order), then iterate over the cubes and
     count the number of subsequent pairs that are connected on a side.
     - Sort by x-axis, z-axis, y-axis (in this order) then do the same.
-    - Sort by z-axis, y-axis, x-axis (in this order), then do the same. 
-- What was not clear to me is the case when we have "hidden inner holes". E.g. we 
+    - Sort by z-axis, y-axis, x-axis (in this order), then do the same.
+- What was not clear to me is the case when we have "hidden inner holes". E.g. we
 could have an empty area that is fully covered by other cubes. Do we count the inner
 surface area into our overall count or not? It turns out that we do count the inner
 surface area just like the outside surface area (based on the test case).
-- Note: Afterwards, I read about alternative solutions and I found this one, which I 
+- Note: Afterwards, I read about alternative solutions and I found this one, which I
 really like: https://www.youtube.com/watch?v=7tlWvZTPz1c
 """
 

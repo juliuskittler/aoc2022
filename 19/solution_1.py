@@ -3,7 +3,7 @@
 - This solution is readable but a lot of code is duplicated. The code could have been
 condensed by not representing the values from the blueprints as individual values.
 Instead, the values should be formatted as list of dicts, with one dict for each robot.
-Each such dict should represent the cost of raw materials for this robot. Each key 
+Each such dict should represent the cost of raw materials for this robot. Each key
 should be the name of a material and the respective value the cost of that material
 required to produce the respective robot.
 - Just like for problem 16, we can use dynamic programming and cache the solution,
@@ -18,18 +18,18 @@ i.e. the maximum number of geodes, that can be achieved from each state.
     - Number of obsidian robots -> n_obs_r
     - Number of geode robots    -> n_geo_r
     - Remaining minutes         -> rem_mins
-- There are 5 possible actions at each minute: 1) do nothing, 2) produce geode robot, 
+- There are 5 possible actions at each minute: 1) do nothing, 2) produce geode robot,
 3) produce ore robot, 4) produce clay robot, 5) produce obsidian robot.
 - For the latter 4 actions, we call our recursive function itself (with updated
 state parameters for the time point after producing the respective robot).
 - To avoid unnecessary recursions, we never produce an additional robot for a particular
 material if this robot would clearly waste resources. Our robots should not produce more
 raw materials than we can spend in 1 iteration. How do we ensure that exactly?
-We can only produce at most 1 robot per iteration. This means that the maximum amount 
-of a specific material that we can spend in 1 iteration can be identified as the maximum 
-amount required of this raw material to produce any of our robots. We should never have 
-more robots than this value since we don't want to produce more of this material than 
-we can spend in one iteration. E.g., if we can spend at most 7 obsidian in a given 
+We can only produce at most 1 robot per iteration. This means that the maximum amount
+of a specific material that we can spend in 1 iteration can be identified as the maximum
+amount required of this raw material to produce any of our robots. We should never have
+more robots than this value since we don't want to produce more of this material than
+we can spend in one iteration. E.g., if we can spend at most 7 obsidian in a given
 round (to produce any robot), then we never need more than 7 obsidian robots.
 - To make caching more effective, we put an upper limit on our 3 raw material resources
 that can be used to produce robots: ore, clay, obsidian. We compute the maximum amount
@@ -37,7 +37,7 @@ of a particular resource that we can possibly spend across all remaining steps. 
 the current amount is larger than this maximum amount, we set it to the maximum amount.
 This way, cache hits will be more likely and we don't impact the result at all (since
 as mentioned we would never be able to use more of the particular raw material).
-- Reference: I was struggeling with this problem and this video by hyper-neutrino 
+- Reference: I was struggeling with this problem and this video by hyper-neutrino
 helped me a lot: https://www.youtube.com/watch?v=H3PSODv4nf0&t=683s
 """
 

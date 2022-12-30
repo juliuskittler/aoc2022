@@ -8,7 +8,6 @@ def solution(inventory_list: List[str]) -> int:
     # Initialize useful variables
     max_calories_per_elf = 0
     calories_of_current_elf = 0
-    n = len(inventory_list)
 
     # Iterate over each item in the inventory, summing up calories for each elf
     for i, item in enumerate(inventory_list):

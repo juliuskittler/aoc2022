@@ -1,11 +1,11 @@
 """2022, day 21, part 2.
 
-- Initially, we need to understand which of the 2 monkeys in the root operation can be 
+- Initially, we need to understand which of the 2 monkeys in the root operation can be
 influenced by what the human 'humn' says. The monkey that cannot be influenced is fixed.
 We can compute the number for this monkey as before with our recursive get_number
-function. This number will be our 'target'. The other monkey that can be influenced is 
+function. This number will be our 'target'. The other monkey that can be influenced is
 variable. It's number will be our 'x' that we need to find.
-- For the monkey that is variable, we recursively compute the 'x' (which will then 
+- For the monkey that is variable, we recursively compute the 'x' (which will then
 become the new target during the next recursion step) until we have reached 'humn'.
 """
 

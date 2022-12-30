@@ -6,11 +6,11 @@ we came from.
 - The challenge here is: If there are multiple possibilities, how do we know which one
 is going to be faster? It seems impossible to tell up-front.
 - One possible approach is to use recursion and simply try out all possibilities. E.g.
-we can create a function that returns the number of steps required to reach E from a 
+we can create a function that returns the number of steps required to reach E from a
 given position. For each possible direction (i.e. where the letter is either smaller
 or 1 letter larger than the letter of the current direction), the function will call
 itself to get the required number of steps for the respective direction. Then, it will
-take the minimum of all the returned numbers of steps. However, this seems very 
+take the minimum of all the returned numbers of steps. However, this seems very
 inefficient because we would visit certain positions multiple times.
 - Let's use BFS! Reference: https://www.youtube.com/watch?v=oDqjPvD54Ss
 """

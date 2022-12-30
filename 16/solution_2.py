@@ -1,17 +1,17 @@
 """2022, day 16, part 2.
 
 - This takes a bit longer to run than part 1 but it still completes in 1 minute or so.
-- In this part 2, we have only 26 instead of 30 minutes and we have another 'you', 
+- In this part 2, we have only 26 instead of 30 minutes and we have another 'you',
 namely an elephant, who helps traversing the graph and opening valves.
 - The solution is to split the set of valves to be opened into 2 disjoint sets, meaning
-that the elephant will visit only valves that you won't visit and vice versa. You and 
-the elephant both indepently decide in which order to visit these valves. 
-- So, essentially, we everything as before. The only changes are in the __init__ 
-function, where init_rem_minutes is set to 26, and in the get_solution function. 
+that the elephant will visit only valves that you won't visit and vice versa. You and
+the elephant both indepently decide in which order to visit these valves.
+- So, essentially, we everything as before. The only changes are in the __init__
+function, where init_rem_minutes is set to 26, and in the get_solution function.
 - In the get_solution function, we iterate over all possible pairs of disjoint
 sets to be visited by you and the elephant. For each pair, we call the _get_max_pressure
 function twice, once for you (using your set) and once for the elephant (using the
-elephant's set). Note that the "set of valves to visit" is encoded as open_valves 
+elephant's set). Note that the "set of valves to visit" is encoded as open_valves
 parameter, where we basically pretend that certain valves have already been visited
 before and therefore should not be visited anymore by you or the elephant.
 """

@@ -1,10 +1,10 @@
 """2022, day 20, part 1.
 
-- The positions are not exactly aligned with the example from the problem statement but 
+- The positions are not exactly aligned with the example from the problem statement but
 that is no issue since the correct order is preserved. Example: If there is a -2 at
 index 2, the new position will be inserted at 2-2=0. I.e. it will be insertet at the
 beginning of the list, whereas in the example it's inserted at the end of the list.
-That's no issue because however, because if we inserted at the beginning of the list at 
+That's no issue because however, because if we inserted at the beginning of the list at
 position 0, we shift the current value at position 0 to position 1. This means that
 the inserted element is left to the current element at position 0 in any case.
 - The input sequence can contain duplicate values. The example input does not but the

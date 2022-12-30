@@ -7,10 +7,10 @@
     - Test input: 23, 19, 13, 17
     - Problem input: 13, 19, 11, 17, 3, 7, 5, 2
 - Prime numbers are whole numbers greater than 1 that cannot be exactly divided by any
-whole number other than itself and 1. 
-- This means that the least common multiple (LCM) of a list of prime numbers is simply 
+whole number other than itself and 1.
+- This means that the least common multiple (LCM) of a list of prime numbers is simply
 the product of all the prime numbers in the list.
-- If we take the modulo of an item's worry level with the LCM, we maintain the 
+- If we take the modulo of an item's worry level with the LCM, we maintain the
 divisibility with all of the prime numbers.
 """
 
