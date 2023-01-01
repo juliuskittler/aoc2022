@@ -15,14 +15,13 @@ Importantly, the input coordinates have coordinates that lie very far from each 
 """
 
 import pathlib
-from typing import List, Tuple
 
 from utils import get_coords, manhattan_distance
 
 
-def solution(
-    row_idx: int, sensor_coords: List[Tuple], beacon_coords: List[Tuple]
-) -> int:
+def solution(filepath: pathlib.Path, row_idx: int) -> int:
+
+    sensor_coords, beacon_coords = get_coords(filepath)
 
     # Initialize useful variables
     positions_reached_on_row_idx = set()
@@ -57,30 +56,29 @@ def solution(
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("15/input.txt")
-    sensor_coords, beacon_coords = get_coords(filepath)
-    row_idx = 2000000
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(row_idx, sensor_coords, beacon_coords))  # correct: 4985193
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    row_idx = 2000000
+    print(solution(filepath, row_idx))  # correct: 4985193
 
     # Test 1
-    filepath = pathlib.Path("15/input_test_1.txt")
-    sensor_coords_test, beacon_coords_test = get_coords(filepath)
+    filepath = dirpath / "input_test_1.txt"
     row_idx = 10
     expected = 26
-    solution(row_idx, sensor_coords_test, beacon_coords_test)
-    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+    assert (solution(filepath, row_idx)) == expected
 
     # Test 2
-    filepath = pathlib.Path("15/input_test_2.txt")
+    filepath = dirpath / "input_test_2.txt"
     sensor_coords_test, beacon_coords_test = get_coords(filepath)
     row_idx = 10
     expected = 12
-    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+    assert (solution(filepath, row_idx)) == expected
 
     # Test 3
-    filepath = pathlib.Path("15/input_test_3.txt")
+    filepath = dirpath / "input_test_3.txt"
     sensor_coords_test, beacon_coords_test = get_coords(filepath)
     row_idx = 10
     expected = 16
-    assert (solution(row_idx, sensor_coords_test, beacon_coords_test)) == expected
+    assert (solution(filepath, row_idx)) == expected

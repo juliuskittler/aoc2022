@@ -13,7 +13,9 @@ from typing import List
 from utils import get_lists, merge_sort
 
 
-def solution(lists: List[List]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    lists = get_lists(filepath)
 
     # Append the divider packets to our list
     dividers = [[[2]], [[6]]]
@@ -33,13 +35,13 @@ def solution(lists: List[List]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("13/input.txt")
-    lists = get_lists(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(lists))  # correct: 22344
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 22344
 
     # Test 1
-    filepath = pathlib.Path("13/input_test_1.txt")
-    lists_test = get_lists(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 140
-    assert solution(lists_test) == expected
+    assert solution(filepath) == expected

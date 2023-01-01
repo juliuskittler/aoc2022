@@ -47,7 +47,10 @@ def get_new_idx_for_t(idx_t: Tuple[int], idx_h: Tuple[int]) -> Tuple[int]:
     return (x_idx_t, y_idx_t)
 
 
-def solution(head_motions: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        head_motions = f.read().splitlines()
 
     # Initialize useful variables
     n_knots = 10
@@ -94,18 +97,18 @@ def solution(head_motions: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("09/input.txt")
-    with open(filepath, "r") as f:
-        head_motions = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(head_motions))  # correct: 2482
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 2482
 
     # Test 1
-    head_motions_test = ["R 4", "U 4", "L 3", "D 1", "R 4", "D 1", "L 5", "R 2"]
+    filepath = dirpath / "input_test_1.txt"
     expected = 1
-    assert solution(head_motions_test) == expected
+    assert solution(filepath) == expected
 
     # Test 2
-    head_motions_test = ["R 5", "U 8", "L 8", "D 3", "R 17", "D 10", "L 25", "U 20"]
+    filepath = dirpath / "input_test_2.txt"
     expected = 36
-    assert solution(head_motions_test) == expected
+    assert solution(filepath) == expected

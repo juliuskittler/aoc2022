@@ -1,10 +1,13 @@
 """2022, day 5, part 1: https://adventofcode.com/2022/day/5."""
 import pathlib
-import re
-from typing import List, Tuple
+
+from utils import parse_input
 
 
-def solution(instructions: List[Tuple], stacks: List[List]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    stacks, instructions = parse_input(filepath)
+
     # Iterate over instructions and adjust the stacks accordingly
     for instruction in instructions:
         how_many, from_stack, to_stack = instruction
@@ -19,37 +22,13 @@ def solution(instructions: List[Tuple], stacks: List[List]) -> int:
 
 if __name__ == "__main__":
 
-    # Input data
-    filepath = pathlib.Path("05/input.txt")
-    with open(filepath, "r") as f:
-        my_input = f.read()  # .splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-        # Get instructions in list form
-        instructions_str = my_input.split("\n\n")[1].splitlines()
-        instructions = [
-            tuple(map(int, re.findall("[0-9]+", instr))) for instr in instructions_str
-        ]
-
-        # Get stacks in list form
-        stacks_str = my_input.split("\n\n")[0].split("\n")
-        col_indices = [
-            (m.start(0), m.end(0)) for m in re.finditer("[0-9+]", stacks_str[-1])
-        ]
-        row_indices = list(range(0, len(stacks_str) - 1))
-        stacks = []
-        for col in col_indices:
-            new_stack = []
-            for row in range(0, len(stacks_str) - 1):
-                value = stacks_str[row][col[0] : col[1]]
-                if value != " ":
-                    new_stack.append(value)
-            stacks.append(list(reversed(new_stack)))
-
-    # Result
-    print(solution(instructions, stacks))  # correct: RFFFWBPNS
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: RFFFWBPNS
 
     # Test 1
-    instructions_test = [(1, 2, 1), (3, 1, 3), (2, 2, 1), (1, 1, 2)]
-    stacks_test = [["Z", "N"], ["M", "C", "D"], ["P"]]
+    filepath = dirpath / "input_test_1.txt"
     expected = "CMZ"
-    assert solution(instructions_test, stacks_test) == expected
+    assert solution(filepath) == expected

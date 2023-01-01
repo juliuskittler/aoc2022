@@ -1,9 +1,14 @@
 """2022, day 2, part 2: https://adventofcode.com/2022/day/2."""
 import pathlib
-from typing import List
 
 
-def solution(opponent: List[str], player: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        my_list = f.read().splitlines()
+        opponent = [x[0] for x in my_list]
+        player = [x[-1] for x in my_list]
+
     # Check inputs
     assert len(player) == len(opponent)
     assert all([x in ["A", "B", "C"] for x in opponent])
@@ -47,30 +52,13 @@ def solution(opponent: List[str], player: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    # Input data
-    filepath = pathlib.Path("02/input.txt")
-    with open(filepath, "r") as f:
-        my_list = f.read().splitlines()
-        opponent = [x[0] for x in my_list]
-        player = [x[-1] for x in my_list]
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    # Result
-    print(solution(opponent, player))  # correct: 14610
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 14610
 
     # Test 1
-    opponent_test = ["A", "B", "C"]
-    player_test = ["Y", "X", "Z"]
+    filepath = dirpath / "input_test_1.txt"
     expected = 12
-    assert solution(opponent_test, player_test) == expected
-
-    # Test 2
-    opponent_test = ["A", "B", "C"]
-    player_test = ["X", "Y", "Z"]
-    expected = 15  # (0+3) + (3+2) + (6+1)
-    assert solution(opponent_test, player_test) == expected
-
-    # Test 3
-    opponent_test = ["A", "B", "C"]
-    player_test = ["Z", "Z", "Z"]
-    expected = 24  # (6+1) + (6+2) + (6+3)
-    assert solution(opponent_test, player_test) == expected
+    assert solution(filepath) == expected

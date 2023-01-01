@@ -3,7 +3,11 @@ import pathlib
 from typing import List
 
 
-def solution(instructions: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        instructions = f.read().splitlines()
+
     # Initialize useful variables
     x = 1
     cycle = 1
@@ -47,10 +51,11 @@ def solution(instructions: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("10/input.txt")
-    with open(filepath, "r") as f:
-        instructions = f.read().splitlines()
-    print(solution(instructions))  # correct: EFUGLPAP
+    dirpath = pathlib.Path(__file__).parent.resolve()
+
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: EFUGLPAP
 
     ####.####.#..#..##..#....###...##..###..
     # ....#....#..#.#..#.#....#..#.#..#.#..#.
@@ -60,10 +65,8 @@ if __name__ == "__main__":
     ####.#.....##...###.####.#....#..#.#....
 
     # Test 1
-    filepath = pathlib.Path("10/input_test_1.txt")
-    with open(filepath, "r") as f:
-        instructions_test = f.read().splitlines()
-    solution(instructions_test)
+    filepath = dirpath / "input_test_1.txt"
+    solution(filepath)
 
     ##..##..##..##..##..##..##..##..##..##..
     ###...###...###...###...###...###...###.

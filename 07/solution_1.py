@@ -5,10 +5,12 @@ is that we only go a directory up if we have seen all files of the subdirectorie
 """
 
 import pathlib
-from typing import List
 
 
-def solution(terminal_outputs: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        terminal_outputs = f.read().splitlines()
 
     # Initialize useful variables
     size_per_dir = []  # For complete sums of filesizes for each directory
@@ -51,37 +53,13 @@ def solution(terminal_outputs: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("07/input.txt")
-    with open(filepath, "r") as f:
-        terminal_outputs = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(terminal_outputs))  # correct: 1432936
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 1432936
 
     # Test 1
-    terminal_outputs_test = [
-        "$ cd /",
-        "$ ls",
-        "dir a",
-        "14848514 b.txt",
-        "8504156 c.dat",
-        "dir d",
-        "$ cd a",
-        "$ ls",
-        "dir e",
-        "29116 f",
-        "2557 g",
-        "62596 h.lst",
-        "$ cd e",
-        "$ ls",
-        "584 i",
-        "$ cd ..",
-        "$ cd ..",
-        "$ cd d",
-        "$ ls",
-        "4060174 j",
-        "8033020 d.log",
-        "5626152 d.ext",
-        "7214296 k",
-    ]
+    filepath = dirpath / "input_test_1.txt"
     expected = 95437
-    assert solution(terminal_outputs_test) == expected
+    assert solution(filepath) == expected

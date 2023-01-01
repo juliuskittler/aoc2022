@@ -8,10 +8,12 @@ to store positions that T has actually visited, not the ones that it has not vis
 """
 
 import pathlib
-from typing import List
 
 
-def solution(head_motions: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        head_motions = f.read().splitlines()
 
     # Initialize useful variables
     x_idx_h = 0  # x-axis position of head H
@@ -89,13 +91,13 @@ def solution(head_motions: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("09/input.txt")
-    with open(filepath, "r") as f:
-        head_motions = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(head_motions))  # correct: 6311
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 6311
 
     # Test 1
-    head_motions_test = ["R 4", "U 4", "L 3", "D 1", "R 4", "D 1", "L 5", "R 2"]
+    filepath = dirpath / "input_test_1.txt"
     expected = 13
-    assert solution(head_motions_test) == expected
+    assert solution(filepath) == expected

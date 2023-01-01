@@ -1,11 +1,12 @@
 """2022, day 13, part 1: https://adventofcode.com/2022/day/13."""
 import pathlib
-from typing import List
 
 from utils import get_lists, lists_are_in_order
 
 
-def solution(lists: List[List]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    lists = get_lists(filepath)
 
     # Initialize useful variables
     pair_idx_in_order = list()
@@ -26,19 +27,18 @@ def solution(lists: List[List]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("13/input.txt")
-    lists = get_lists(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(lists))  # correct: 5198
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 5198
 
     # Test 1
-    filepath = pathlib.Path("13/input_test_1.txt")
-    lists_test = get_lists(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 13
-    assert solution(lists_test) == expected
+    assert solution(filepath) == expected
 
     # Test 2
-    filepath = pathlib.Path("13/input_test_2.txt")
-    lists_test = get_lists(filepath)
+    filepath = dirpath / "input_test_2.txt"
     expected = 0
-    assert solution(lists_test) == expected
+    assert solution(filepath) == expected

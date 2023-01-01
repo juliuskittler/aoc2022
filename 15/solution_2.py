@@ -40,18 +40,17 @@ following about the position of the distress signal:
 
 
 import pathlib
-from typing import List, Tuple
 
 from utils import get_coords, manhattan_distance
 
 
 def solution(
-    sensor_coords: List[Tuple],
-    beacon_coords: List[Tuple],
+    filepath: pathlib.Path,
     max_coord: int,
     min_coord: int = 0,
 ) -> int:
 
+    sensor_coords, beacon_coords = get_coords(filepath)
     n_sensors = len(sensor_coords)
 
     # How many times was a particular coordinate just 1 step outside the range of any
@@ -158,15 +157,15 @@ def solution(
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("15/input.txt")
-    sensor_coords, beacon_coords = get_coords(filepath)
-    max_coord = 4000000
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(sensor_coords, beacon_coords, max_coord))  # correct: 11583882601918
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    max_coord = 4000000
+    print(solution(filepath, max_coord))  # correct: 11583882601918
 
     # Test 1
-    filepath = pathlib.Path("15/input_test_1.txt")
-    sensor_coords_test, beacon_coords_test = get_coords(filepath)
+    filepath = dirpath / "input_test_1.txt"
     max_coord = 20
     expected = 56000011
-    assert (solution(sensor_coords_test, beacon_coords_test, max_coord)) == expected
+    assert (solution(filepath, max_coord)) == expected

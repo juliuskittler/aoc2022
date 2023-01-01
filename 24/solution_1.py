@@ -137,10 +137,13 @@ class Solution:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("24/input.txt")
+    dirpath = pathlib.Path(__file__).parent.resolve()
+
+    # Puzzle
+    filepath = dirpath / "input.txt"
     print(Solution(filepath).get_solution())  # correct: 253
 
     # Test 1
-    filepath = pathlib.Path("24/input_test_1.txt")
+    filepath = dirpath / "input_test_1.txt"
     expected = 18
     assert Solution(filepath).get_solution() == expected

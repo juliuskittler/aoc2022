@@ -28,18 +28,15 @@ instead of recursing down our graph and trying out all paths again.
 
 import copy
 import pathlib
-from typing import List
 
 from utils import BreadthFirstSearch, get_valve_info
 
 
 class Solution:
-    def __init__(
-        self,
-        flow_rates: List[int],
-        dest_valves: List[str],
-        targ_valves: List[List[str]],
-    ) -> None:
+    def __init__(self, filepath: pathlib.Path) -> None:
+
+        flow_rates, dest_valves, targ_valves = get_valve_info(filepath)
+
         # Initialize useful variables
         self.init_valve = "AA"
         self.init_rem_minutes = 30
@@ -173,18 +170,13 @@ class Solution:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("16/input.txt")
-    flow_rates, dest_valves, targ_valves = get_valve_info(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(
-        Solution(flow_rates, dest_valves, targ_valves).get_solution()
-    )  # correct: 1775
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(Solution(filepath).get_solution())  # correct: 1775
 
     # Test 1
-    filepath = pathlib.Path("16/input_test_1.txt")
-    flow_rates_test, dest_valves_test, targ_valves_test = get_valve_info(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 1651
-    assert (
-        Solution(flow_rates_test, dest_valves_test, targ_valves_test).get_solution()
-        == expected
-    )
+    assert Solution(filepath).get_solution() == expected

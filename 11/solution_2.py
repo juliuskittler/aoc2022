@@ -14,18 +14,14 @@ the product of all the prime numbers in the list.
 divisibility with all of the prime numbers.
 """
 
-import copy
 import pathlib
-from typing import Dict
 
 from utils import get_monkey_dict
 
 
-def solution(monkey_dict: Dict) -> int:
-    # Required so that the input outside this function remains the same even if we
-    # call the function. After using copy.deepcopy, we can call the function multiple
-    # times with the same 'monkey_dict' input and the output will always be the same
-    monkey_dict = copy.deepcopy(monkey_dict)
+def solution(filepath: pathlib.Path) -> int:
+
+    monkey_dict = get_monkey_dict(filepath)
 
     # Initialize useful variables
     n_rounds = 10000
@@ -84,12 +80,13 @@ def solution(monkey_dict: Dict) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("11/input.txt")
-    monkey_dict = get_monkey_dict(filepath)
-    print(solution(monkey_dict))  # correct: 19457438264
+    dirpath = pathlib.Path(__file__).parent.resolve()
+
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 19457438264
 
     # Test 1
     filepath = pathlib.Path("11/input_test_1.txt")
-    monkey_dict_test = get_monkey_dict(filepath)
     expected = 2713310158
-    assert solution(monkey_dict_test) == expected
+    assert solution(filepath) == expected

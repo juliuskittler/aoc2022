@@ -67,7 +67,9 @@ def count_connected_sides(ax: int, cubes: Tuple[int], n_cubes: Optional[int] = N
     return adjacent_count
 
 
-def solution(cubes: Tuple[int]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    cubes = get_cubes(filepath)
     n_cubes = len(cubes)
     n_connected_sides = (
         count_connected_sides(0, cubes, n_cubes)
@@ -81,43 +83,38 @@ def solution(cubes: Tuple[int]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("18/input.txt")
-    cubes = get_cubes(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(cubes))
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 3662
 
     # Test 1
-    filepath = pathlib.Path("18/input_test_1.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 64
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected
 
     # Test 2
-    filepath = pathlib.Path("18/input_test_2.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_2.txt"
     expected = 30  # 6 connected sides -> 7 * 6 - 2*6
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected
 
     # Test 3
-    filepath = pathlib.Path("18/input_test_3.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_3.txt"
     expected = 36  # 6 connected sides -> 8 * 6 - 2*6
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected
 
     # Test 4
-    filepath = pathlib.Path("18/input_test_4.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_4.txt"
     expected = 32  # 8 connected sides -> 8 * 6 - 2*8
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected
 
     # Test 5
-    filepath = pathlib.Path("18/input_test_5.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_5.txt"
     expected = 36  # 9 connected sides -> 9 * 6 - 2*9
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected
 
     # Test 6
-    filepath = pathlib.Path("18/input_test_6.txt")
-    cubes_test = get_cubes(filepath)
+    filepath = dirpath / "input_test_6.txt"
     expected = 36  # 12 connected sides -> 10 * 6 - 2*12
-    assert solution(cubes_test) == expected
+    assert solution(filepath) == expected

@@ -1,9 +1,12 @@
 """2022, day 10, part 1: https://adventofcode.com/2022/day/10."""
 import pathlib
-from typing import List
 
 
-def solution(instructions: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        instructions = f.read().splitlines()
+
     # Initialize useful variables
     x = 1
     cycle = 1
@@ -41,15 +44,13 @@ def solution(instructions: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("10/input.txt")
-    with open(filepath, "r") as f:
-        instructions = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(instructions))  # expected: 15020
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # expected: 15020
 
     # Test 1
-    filepath = pathlib.Path("10/input_test_1.txt")
-    with open(filepath, "r") as f:
-        instructions_test = f.read().splitlines()
+    filepath = dirpath / "input_test_1.txt"
     expected = 13140
-    assert solution(instructions_test) == expected
+    assert solution(filepath) == expected

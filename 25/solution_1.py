@@ -80,7 +80,10 @@ def decimal_to_snafu(decimal: int) -> str:
     return snafu_str
 
 
-def solution(snafu_list: pathlib.Path) -> str:
+def solution(filepath: pathlib.Path) -> str:
+
+    with open(filepath, "r") as f:
+        snafu_list = f.read().splitlines()
 
     # Convert all snafu values to decimal values and sum them up
     decimal = sum([snafu_to_decimal(snafu) for snafu in snafu_list])
@@ -92,18 +95,16 @@ def solution(snafu_list: pathlib.Path) -> str:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("25/input.txt")
-    with open(filepath, "r") as f:
-        snafu_list = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(snafu_list))  # correct: 2-=2==00-0==2=022=10
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 2-=2==00-0==2=022=10
 
     # Test case 1
-    filepath = pathlib.Path("25/input_test_1.txt")
-    with open(filepath, "r") as f:
-        snafu_list = f.read().splitlines()
+    filepath = dirpath / "input_test_1.txt"
     expected = "2=-1=0"
-    assert solution(snafu_list) == expected
+    assert solution(filepath) == expected
 
     # Test cases for auxilary functions
     snafu_list = [

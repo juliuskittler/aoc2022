@@ -1,9 +1,15 @@
 """2022, day 8, part 2: https://adventofcode.com/2022/day/8."""
 import pathlib
-from typing import List
 
 
-def solution(treegrid: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        treegrid_str = f.read().splitlines()
+        treegrid = []
+        for treerow_str in treegrid_str:
+            treerow = [int(height) for height in treerow_str]
+            treegrid.append(treerow)
 
     # Initialize useful variables
     n_rows = len(treegrid)
@@ -58,23 +64,13 @@ def solution(treegrid: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("08/input.txt")
-    with open(filepath, "r") as f:
-        treegrid_str = f.read().splitlines()
-        treegrid = []
-        for treerow_str in treegrid_str:
-            treerow = [int(height) for height in treerow_str]
-            treegrid.append(treerow)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(treegrid))  # correct: 332640
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 332640
 
     # Test 1
-    treegrid_test = [
-        [3, 0, 3, 7, 3],
-        [2, 5, 5, 1, 2],
-        [6, 5, 3, 3, 2],
-        [3, 3, 5, 4, 9],
-        [3, 5, 3, 9, 0],
-    ]
+    filepath = dirpath / "input_test_1.txt"
     expected = 8
-    assert solution(treegrid_test) == expected
+    assert solution(filepath) == expected

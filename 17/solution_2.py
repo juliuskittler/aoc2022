@@ -7,7 +7,10 @@ import pathlib
 from utils import get_shape_coords
 
 
-def solution(dir_str: str, n_rocks: int = 10000) -> int:
+def solution(filepath: pathlib.Path, n_rocks: int = 10000) -> int:
+
+    with open(filepath, "r") as f:
+        dir_str = f.read()
 
     # Initialize useful variables
     x_start_coord = 2  # x-position where the rock starts falling
@@ -131,8 +134,8 @@ def solution(dir_str: str, n_rocks: int = 10000) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("17/input.txt")
-    with open(filepath, "r") as f:
-        dir_str = f.read()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    solution(dir_str)
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    solution(filepath)

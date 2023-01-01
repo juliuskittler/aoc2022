@@ -106,15 +106,18 @@ class Solution:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("18/input.txt")
+    dirpath = pathlib.Path(__file__).parent.resolve()
+
+    # Puzzle
+    filepath = dirpath / "input.txt"
     print(Solution(filepath).get_solution())  # correct: 2060
 
     # Test 1
-    filepath = pathlib.Path("18/input_test_1.txt")
+    filepath = dirpath / "input_test_1.txt"
     expected = 58
     assert Solution(filepath).get_solution() == expected
 
     # Test 2
-    filepath = pathlib.Path("18/input_test_2.txt")
+    filepath = dirpath / "input_test_2.txt"
     expected = 30  # 6 connected sides -> 7 * 6 - 2*6
     assert Solution(filepath).get_solution() == expected

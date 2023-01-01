@@ -18,11 +18,14 @@ each element is uniquely idenfied.
 
 
 import pathlib
-from typing import Tuple
 
 
-def solution(sequence: Tuple[int]) -> int:
+def solution(filepath: pathlib.Path) -> int:
 
+    with open(filepath, "r") as f:
+        sequence = tuple(map(int, f.read().splitlines()))
+
+    # Initialize useful variables
     sequence_len = len(sequence)
     sequence_old = [(i_old, val) for i_old, val in enumerate(sequence)]
     sequence_new = [(i_old, val) for i_old, val in enumerate(sequence)]
@@ -53,15 +56,13 @@ def solution(sequence: Tuple[int]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("20/input.txt")
-    with open(filepath, "r") as f:
-        sequence = tuple(map(int, f.read().splitlines()))
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(sequence))  # correct: 4151
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 4151
 
     # Test 1
-    filepath = pathlib.Path("20/input_test_1.txt")
-    with open(filepath, "r") as f:
-        sequence_test = tuple(map(int, f.read().splitlines()))
+    filepath = dirpath / "input_test_1.txt"
     expected = 3
-    assert solution(sequence_test) == expected
+    assert solution(filepath) == expected

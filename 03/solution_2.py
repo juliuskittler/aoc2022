@@ -1,10 +1,13 @@
 """2022, day 3, part 2: https://adventofcode.com/2022/day/3."""
 import pathlib
 import string
-from typing import List
 
 
-def solution(rucksack_contents: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        rucksack_contents = f.read().splitlines()
+
     # Check inputs
     n = len(rucksack_contents)
     assert n % 3 == 0, "Number of rucksack contents is perfectly divisible by 3."
@@ -39,43 +42,13 @@ def solution(rucksack_contents: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    # Input data
-    filepath = pathlib.Path("03/input.txt")
-    with open(filepath, "r") as f:
-        rucksack_contents = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    # Result
-    print(solution(rucksack_contents))  # correct: 2510
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 2510
 
     # Test 1
-    rucksack_contents_test = [
-        "vJrwpWtwJgWrhcsFMMfFFhFp",
-        "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
-        "PmmdzqPrVvPwwTWBwg",
-        "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
-        "ttgJtRGJQctTZtZT",
-        "CrZsJsPPZsGzwwsLwLmpwMDw",
-    ]
+    filepath = dirpath / "input_test_1.txt"
     expected = 70
-    assert solution(rucksack_contents_test) == expected
-
-    # Test 2
-    rucksack_contents_test = [
-        "aa",
-        "aa",
-        "aa",
-    ]
-    expected = 1
-    assert solution(rucksack_contents_test) == expected
-
-    # Test 3
-    rucksack_contents_test = [
-        "aa",
-        "aa",
-        "aa",
-        "AA",
-        "AA",
-        "AA",
-    ]
-    expected = 1 + 27  # 27+1
-    assert solution(rucksack_contents_test) == expected
+    assert solution(filepath) == expected

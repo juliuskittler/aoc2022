@@ -1,15 +1,13 @@
 """2022, day 14, part 1: https://adventofcode.com/2022/day/14."""
 
-import copy
 import pathlib
-from typing import List
 
 from utils import get_new_position, get_rock_paths
 
 
-def solution(rock_paths: List[List[List[int]]]):
+def solution(filepath: pathlib.Path) -> int:
 
-    rock_paths = copy.deepcopy(rock_paths)
+    rock_paths = get_rock_paths(filepath)
 
     # Initialize position from where the sand falls
     hole_x = 500
@@ -102,13 +100,13 @@ def solution(rock_paths: List[List[List[int]]]):
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("14/input.txt")
-    rock_paths = get_rock_paths(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(rock_paths))  # correct: 715
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 715
 
     # Test 1
-    filepath = pathlib.Path("14/input_test_1.txt")
-    rock_paths_test = get_rock_paths(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 24
-    assert solution(rock_paths_test) == expected
+    assert solution(filepath) == expected

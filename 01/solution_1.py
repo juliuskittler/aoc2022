@@ -1,9 +1,11 @@
 """2022, day 1, part 1: https://adventofcode.com/2022/day/1."""
 import pathlib
-from typing import List
 
 
-def solution(inventory_list: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        inventory_list = f.read().splitlines()
 
     # Initialize useful variables
     max_calories_per_elf = 0
@@ -26,20 +28,13 @@ def solution(inventory_list: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    # Input data
-    filepath = pathlib.Path("01/input.txt")
-    with open(filepath, "r") as f:
-        inventory_list = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    # Result
-    print(solution(inventory_list))  # correct: 67622
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 67622
 
     # Test 1
-    inventory_list_test = ["1", "2", "", "300"]
-    expected = 300
-    assert solution(inventory_list_test) == expected
-
-    # Test 2
-    inventory_list_test = ["1", "2", ""]
-    expected = 3
-    assert solution(inventory_list_test) == expected
+    filepath = dirpath / "input_test_1.txt"
+    expected = 24000
+    assert solution(filepath) == expected

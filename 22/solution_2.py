@@ -16,14 +16,14 @@ in some way (during step 1 or step 2.)
 """
 
 import pathlib
-from typing import List, Union
 
 from utils import get_instructions, get_map
 
 
-def solution(
-    map: List[List[str]], instructions: List[Union[str, int]], verbose: bool = False
-) -> int:
+def solution(filepath: pathlib.Path, verbose: bool = False) -> int:
+
+    map = get_map(filepath)
+    instructions = get_instructions(filepath)
 
     # Initialize dimenions
     n_rows = len(map)
@@ -157,7 +157,8 @@ def solution(
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("22/input.txt")
-    map = get_map(filepath)
-    instructions = get_instructions(filepath)
-    print(solution(map, instructions))  # correct: 144012
+    dirpath = pathlib.Path(__file__).parent.resolve()
+
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 144012

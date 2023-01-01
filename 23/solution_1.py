@@ -1,17 +1,19 @@
 """2022, day 23, part 1: https://adventofcode.com/2022/day/23."""
 import pathlib
-from typing import List
 
 from utils import print_map
 
 
-def solution(map: List[str], verbose: bool = False) -> int:
+def solution(filepath: pathlib.Path, verbose: bool = False) -> int:
+
+    with open(filepath, "r") as f:
+        map_input = f.read().splitlines()
 
     # Convert the map into a set of elve coordinates, skipping the empty spaces
     elve_coords = set()
-    for i in range(len(map)):
-        for j in range(len(map[0])):
-            if map[i][j] == "#":
+    for i in range(len(map_input)):
+        for j in range(len(map_input[0])):
+            if map_input[i][j] == "#":
                 elve_coords.add((i, j))
     n_elves = len(elve_coords)
 
@@ -175,22 +177,18 @@ def solution(map: List[str], verbose: bool = False) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("23/input.txt")
-    with open(filepath, "r") as f:
-        map_test = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(map_test))  # correct: 4005
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 4005
 
     # Test 1
-    filepath = pathlib.Path("23/input_test_1.txt")
-    with open(filepath, "r") as f:
-        map_test = f.read().splitlines()
+    filepath = dirpath / "input_test_1.txt"
     expected = 25
-    assert solution(map_test) == expected
+    assert solution(filepath) == expected
 
     # Test 2
-    filepath = pathlib.Path("23/input_test_2.txt")
-    with open(filepath, "r") as f:
-        map_test = f.read().splitlines()
+    filepath = dirpath / "input_test_2.txt"
     expected = 110
-    assert solution(map_test) == expected
+    assert solution(filepath) == expected

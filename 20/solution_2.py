@@ -1,10 +1,13 @@
 """2022, day 20, part 2: https://adventofcode.com/2022/day/20."""
 import pathlib
-from typing import Tuple
 
 
-def solution(sequence: Tuple[int]) -> int:
+def solution(filepath: pathlib.Path) -> int:
 
+    with open(filepath, "r") as f:
+        sequence = tuple(map(int, f.read().splitlines()))
+
+    # Initialize useful variables
     sequence_len = len(sequence)
     sequence_old = [(i_old, val * 811589153) for i_old, val in enumerate(sequence)]
     sequence_new = [(i_old, val * 811589153) for i_old, val in enumerate(sequence)]
@@ -38,15 +41,13 @@ def solution(sequence: Tuple[int]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("20/input.txt")
-    with open(filepath, "r") as f:
-        sequence = tuple(map(int, f.read().splitlines()))
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(sequence))  # correct: 7848878698663
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 7848878698663
 
     # Test 1
-    filepath = pathlib.Path("20/input_test_1.txt")
-    with open(filepath, "r") as f:
-        sequence_test = tuple(map(int, f.read().splitlines()))
+    filepath = dirpath / "input_test_1.txt"
     expected = 1623178306
-    assert solution(sequence_test) == expected
+    assert solution(filepath) == expected

@@ -2,8 +2,11 @@
 import pathlib
 
 
-def solution(datastream: str, marker_len: int = 14) -> int:
+def solution(filepath: pathlib.Path, marker_len: int = 14) -> int:
     """Return first index of first sequence with marker_len different characters."""
+    with open(filepath, "r") as f:
+        datastream = f.read()
+
     n = len(datastream)
 
     # Loop through the string, keeping a window of 'marker_len' characters and check
@@ -18,34 +21,33 @@ def solution(datastream: str, marker_len: int = 14) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("06/input.txt")
-    with open(filepath, "r") as f:
-        datastream = f.read()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    # Result
-    print(solution(datastream))  # correct: 2950
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 2950
 
     # Test 1
-    datastream_test = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+    filepath = dirpath / "input_test_1.txt"
     expected = 19
-    assert solution(datastream_test) == expected
+    assert solution(filepath) == expected
 
     # Test 2
-    datastream_test = "bvwbjplbgvbhsrlpgdmjqwftvncz"
+    filepath = dirpath / "input_test_2.txt"
     expected = 23
-    assert solution(datastream_test) == expected
+    assert solution(filepath) == expected
 
     # Test 3
-    datastream_test = "nppdvjthqldpwncqszvftbrmjlhg"
+    filepath = dirpath / "input_test_3.txt"
     expected = 23
-    assert solution(datastream_test) == expected
+    assert solution(filepath) == expected
 
     # Test 4
-    datastream_test = "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"
+    filepath = dirpath / "input_test_4.txt"
     expected = 29
-    assert solution(datastream_test) == expected
+    assert solution(filepath) == expected
 
     # Test 5
-    datastream_test = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
+    filepath = dirpath / "input_test_5.txt"
     expected = 26
-    assert solution(datastream_test) == expected
+    assert solution(filepath) == expected

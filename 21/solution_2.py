@@ -11,14 +11,13 @@ become the new target during the next recursion step) until we have reached 'hum
 
 
 import pathlib
-from typing import Dict
 
 from utils import get_action_dict
 
 
 class Solution:
-    def __init__(self, action_dict: Dict, verbose: bool = False):
-        self.action_dict = action_dict
+    def __init__(self, filepath: pathlib.Path, verbose: bool = False):
+        self.action_dict = get_action_dict(filepath)
         self.verbose = verbose
 
     def get_solution(self) -> int:
@@ -165,13 +164,13 @@ class Solution:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("21/input.txt")
-    action_dict = get_action_dict(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(Solution(action_dict).get_solution())  # correct:
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(Solution(filepath).get_solution())  # correct: 3721298272959
 
     # Test 1
-    filepath = pathlib.Path("21/input_test_1.txt")
-    action_dict_test = get_action_dict(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 301
-    assert Solution(action_dict_test).get_solution() == expected
+    assert Solution(filepath).get_solution() == expected

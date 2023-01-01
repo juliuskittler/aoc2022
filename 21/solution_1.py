@@ -32,19 +32,20 @@ def get_number(monkey: str, action_dict: Dict) -> int:
             return number_mky_l / number_mky_r
 
 
-def solution(action_dict: Dict):
+def solution(filepath: pathlib.Path):
+    action_dict = get_action_dict(filepath)
     return int(get_number("root", action_dict))
 
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("21/input.txt")
-    action_dict = get_action_dict(filepath)
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(action_dict))  # correct: 110181395003396
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 110181395003396
 
     # Test 1
-    filepath = pathlib.Path("21/input_test_1.txt")
-    action_dict_test = get_action_dict(filepath)
+    filepath = dirpath / "input_test_1.txt"
     expected = 152
-    assert solution(action_dict_test) == expected
+    assert solution(filepath) == expected

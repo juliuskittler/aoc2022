@@ -51,8 +51,10 @@ def get_edge_coords(
     return edge_coords
 
 
-def solution(heightmap: List[str]) -> int:
-    heightmap = copy.deepcopy(heightmap)
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        heightmap = f.read().splitlines()
 
     # Initialize useful variables
     n = len(heightmap)  # number of rows
@@ -87,13 +89,13 @@ def solution(heightmap: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    filepath = pathlib.Path("12/input.txt")
-    with open(filepath, "r") as f:
-        heightmap = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    print(solution(heightmap))  # correct: 370
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 370
 
     # Test 1
-    heightmap_test = ["Sabqponm", "abcryxxl", "accszExk", "acctuvwj", "abdefghi"]
+    filepath = dirpath / "input_test_1.txt"
     expected = 31
-    assert solution(heightmap_test) == expected
+    assert solution(filepath) == expected

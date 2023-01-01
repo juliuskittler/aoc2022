@@ -1,10 +1,13 @@
 """2022, day 3, part 1: https://adventofcode.com/2022/day/3."""
 import pathlib
 import string
-from typing import List
 
 
-def solution(rucksack_contents: List[str]) -> int:
+def solution(filepath: pathlib.Path) -> int:
+
+    with open(filepath, "r") as f:
+        rucksack_contents = f.read().splitlines()
+
     # Initialize useful variables
     priority_sum = 0
     priority_dict_lower = {key: i + 1 for i, key in enumerate(string.ascii_lowercase)}
@@ -32,42 +35,13 @@ def solution(rucksack_contents: List[str]) -> int:
 
 if __name__ == "__main__":
 
-    # Input data
-    filepath = pathlib.Path("03/input.txt")
-    with open(filepath, "r") as f:
-        rucksack_contents = f.read().splitlines()
+    dirpath = pathlib.Path(__file__).parent.resolve()
 
-    # Result
-    print(solution(rucksack_contents))  # correct: 8039
+    # Puzzle
+    filepath = dirpath / "input.txt"
+    print(solution(filepath))  # correct: 8039
 
     # Test 1
-    rucksack_contents_test = [
-        "vJrwpWtwJgWrhcsFMMfFFhFp",
-        "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
-        "PmmdzqPrVvPwwTWBwg",
-        "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
-        "ttgJtRGJQctTZtZT",
-        "CrZsJsPPZsGzwwsLwLmpwMDw",
-    ]
+    filepath = dirpath / "input_test_1.txt"
     expected = 157
-    assert solution(rucksack_contents_test) == expected
-
-    # Test 2
-    rucksack_contents_test = [
-        "aa",
-        "bb",
-        "cc",
-        "dd",
-    ]
-    expected = 10  # 1+2+3+4
-    assert solution(rucksack_contents_test) == expected
-
-    # Test 3
-    rucksack_contents_test = [
-        "AA",
-        "BB",
-        "CC",
-        "DD",
-    ]
-    expected = 114  # 27+28+29+30
-    assert solution(rucksack_contents_test) == expected
+    assert solution(filepath) == expected
